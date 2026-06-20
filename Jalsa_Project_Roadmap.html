@@ -1,0 +1,2660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jalsa - Project Roadmap & Team Execution Plan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: visible;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            width: 280px;
+            background: white;
+            border: 2px solid #185FA5;
+            border-radius: 8px;
+            padding: 20px 0;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .sidebar h3 {
+            padding: 0 15px;
+            color: #185FA5;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #185FA5;
+            padding-bottom: 10px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px 15px;
+            color: #185FA5;
+            text-decoration: none;
+            font-size: 0.95em;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background: #f0f7ff;
+            border-left-color: #0F6E56;
+            padding-left: 20px;
+        }
+
+        .sidebar a.active {
+            background: #e6f1fb;
+            border-left-color: #0F6E56;
+            font-weight: 600;
+        }
+
+        .sidebar .nav-group > a.nav-group-toggle {
+            position: relative;
+            padding-right: 30px;
+        }
+
+        .sidebar .nav-group > a.nav-group-toggle::after {
+            content: '▸';
+            position: absolute;
+            right: 12px;
+            transition: transform 0.2s ease;
+            color: #666;
+        }
+
+        .sidebar .nav-group.expanded > a.nav-group-toggle::after {
+            transform: rotate(90deg);
+        }
+
+        .sidebar .nav-sub {
+            display: none;
+            background: #fafcff;
+            border-left: 2px solid #e6f1fb;
+            margin-left: 12px;
+        }
+
+        .sidebar .nav-group.expanded > .nav-sub {
+            display: block;
+        }
+
+        .sidebar .nav-sub a {
+            padding: 7px 15px 7px 18px;
+            font-size: 0.82em;
+            color: #2c5282;
+        }
+
+        .sidebar .nav-sub a:hover {
+            padding-left: 22px;
+        }
+
+        .sidebar .nav-top-link {
+            font-weight: 600;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 5px;
+        }
+
+        .sidebar .nav-divider {
+            height: 1px;
+            background: #eee;
+            margin: 8px 15px;
+        }
+
+        [id] {
+            scroll-margin-top: 24px;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 320px;
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                position: relative;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-height: none;
+                border-radius: 0;
+                margin-bottom: 20px;
+                display: flex;
+                flex-wrap: wrap;
+                border: none;
+                border-bottom: 2px solid #185FA5;
+                background: #f9f9f9;
+                padding: 15px;
+            }
+
+            .sidebar h3 {
+                flex-basis: 100%;
+                margin-bottom: 10px;
+            }
+
+            .sidebar ul {
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
+            .sidebar li {
+                flex: 1;
+                min-width: 150px;
+            }
+
+            .sidebar .nav-group {
+                flex-basis: 100%;
+            }
+
+            .sidebar .nav-sub {
+                display: block;
+                margin-left: 0;
+                border-left: none;
+            }
+
+            .sidebar .nav-sub li {
+                flex: 1;
+                min-width: 120px;
+            }
+
+            .sidebar .nav-group > a.nav-group-toggle::after {
+                display: none;
+            }
+
+            .sidebar a {
+                padding: 8px 10px;
+                text-align: center;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+
+            .sidebar a:hover {
+                border-left: none;
+                border-bottom-color: #0F6E56;
+            }
+
+            .main-content {
+                flex: 1;
+                margin-left: 0;
+            }
+        }
+
+        header {
+            background: linear-gradient(135deg, #185FA5 0%, #0F6E56 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            flex-basis: 100%;
+            width: 100%;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .section {
+            padding: 40px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            color: #185FA5;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #185FA5;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #0F6E56;
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .subsection {
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: #f9f9f9;
+            border-bottom: 2px solid #ddd;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #185FA5;
+            border-right: 1px solid #ddd;
+        }
+
+        th:last-child {
+            border-right: none;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-right: 1px solid #ddd;
+        }
+
+        td:last-child {
+            border-right: none;
+        }
+
+        tbody tr:nth-child(odd) {
+            background: #fafafa;
+        }
+
+        tbody tr:hover {
+            background: #f0f7ff;
+        }
+
+        .domain-name {
+            font-weight: 600;
+            color: #185FA5;
+        }
+
+        .owner {
+            font-weight: 600;
+            color: #0F6E56;
+            background: #f0fbf7;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .complexity-high {
+            background: #fff3cd;
+            color: #856404;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .complexity-medium {
+            background: #cfe2ff;
+            color: #084298;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .complexity-low {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .priority-critical {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .priority-high {
+            background: #fff3cd;
+            color: #856404;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .priority-medium {
+            background: #cfe2ff;
+            color: #084298;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .sprint-box {
+            background: #f9f9f9;
+            border-left: 4px solid #185FA5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .sprint-box h4 {
+            color: #185FA5;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .team-member {
+            background: #f0f7ff;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #0F6E56;
+            border-radius: 4px;
+        }
+
+        .team-member strong {
+            color: #0F6E56;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .use-case-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .use-case-list li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .use-case-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #185FA5;
+            font-weight: bold;
+        }
+
+        .domain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .domain-card {
+            background: #f9f9f9;
+            border: 2px solid #185FA5;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .domain-card h4 {
+            color: #185FA5;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .domain-card .use-case-count {
+            color: #0F6E56;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-box {
+            width: 30px;
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        .dependency-note {
+            background: #fffacd;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .critical-path {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            color: #721c24;
+        }
+
+        .success {
+            background: #d1e7dd;
+            border-left: 4px solid #198754;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .workload-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .workload-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0F6E56 0%, #185FA5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .workload-container {
+            margin: 20px 0;
+        }
+
+        .workload-item {
+            margin: 15px 0;
+        }
+
+        .integration-flow {
+            background: #f0f7ff;
+            padding: 20px;
+            border-left: 4px solid #185FA5;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .flow-step {
+            margin: 10px 0;
+            padding: 8px;
+            background: white;
+            border-radius: 3px;
+        }
+
+        .flow-arrow {
+            text-align: center;
+            color: #185FA5;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        footer {
+            background: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+
+        .version-info {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #185FA5;
+            z-index: 0;
+        }
+
+        .timeline-item {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 3px solid #185FA5;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+        }
+
+        .team-role {
+            display: inline-block;
+            background: #e6f1fb;
+            color: #0C447C;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header id="top">
+            <h1>🏥 Jalsa Project Roadmap</h1>
+            <p>AI-Powered Mental Health Clinic Management System</p>
+            <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">Business-Domain Driven Execution Plan | Team of 5 Members</p>
+        </header>
+
+        <!-- SIDEBAR NAVIGATION -->
+        <nav class="sidebar" id="sidebar-nav">
+            <h3>📑 Navigation</h3>
+            <ul>
+                <li><a href="#top" class="nav-top-link" onclick="scrollToTop(event)">🏥 Jalsa Roadmap</a></li>
+                <li class="nav-divider"></li>
+
+                <li class="nav-group expanded">
+                    <a href="#section-1" class="nav-group-toggle" onclick="navigateTo(event)">📊 Use Case Analysis</a>
+                    <ul class="nav-sub">
+                        <li><a href="#domain-auth" onclick="navigateTo(event)">🔐 Auth & Account</a></li>
+                        <li><a href="#domain-patient" onclick="navigateTo(event)">👥 Patient Management</a></li>
+                        <li><a href="#domain-session" onclick="navigateTo(event)">📝 Session Management</a></li>
+                        <li><a href="#domain-exercise" onclick="navigateTo(event)">💪 Exercise Management</a></li>
+                        <li><a href="#domain-progress" onclick="navigateTo(event)">📊 Progress & Analytics</a></li>
+                        <li><a href="#domain-chat" onclick="navigateTo(event)">💬 Chat & Support</a></li>
+                        <li><a href="#domain-reports" onclick="navigateTo(event)">📋 AI Referral Reports</a></li>
+                        <li><a href="#domain-ai" onclick="navigateTo(event)">🤖 AI Infrastructure</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#section-2" onclick="navigateTo(event)">👥 Domain Ownership</a></li>
+
+                <li class="nav-group">
+                    <a href="#section-3" class="nav-group-toggle" onclick="navigateTo(event)">🎯 Ownership Matrix</a>
+                    <ul class="nav-sub">
+                        <li><a href="#tier-1" onclick="navigateTo(event)">Tier 1: Auth & Account</a></li>
+                        <li><a href="#tier-2" onclick="navigateTo(event)">Tier 2: Patient Management</a></li>
+                        <li><a href="#tier-3" onclick="navigateTo(event)">Tier 3: Session Management</a></li>
+                        <li><a href="#tier-4" onclick="navigateTo(event)">Tier 4: Exercise Management</a></li>
+                        <li><a href="#tier-5" onclick="navigateTo(event)">Tier 5: Progress & Analytics</a></li>
+                        <li><a href="#tier-6" onclick="navigateTo(event)">Tier 6: Chat & Support</a></li>
+                        <li><a href="#tier-7" onclick="navigateTo(event)">Tier 7: AI Referral Reports</a></li>
+                        <li><a href="#tier-8" onclick="navigateTo(event)">Tier 8: AI Infrastructure</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-group">
+                    <a href="#section-4" class="nav-group-toggle" onclick="navigateTo(event)">🤖 AI Ownership</a>
+                    <ul class="nav-sub">
+                        <li><a href="#ai-iman" onclick="navigateTo(event)">Iman Wael (Leader)</a></li>
+                        <li><a href="#ai-salma" onclick="navigateTo(event)">Salma (Backend)</a></li>
+                        <li><a href="#ai-mustafa" onclick="navigateTo(event)">Mustafa (Frontend)</a></li>
+                        <li><a href="#ai-yara" onclick="navigateTo(event)">Yara (Full Stack A)</a></li>
+                        <li><a href="#ai-mohammed" onclick="navigateTo(event)">Mohammed (Full Stack B)</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-group">
+                    <a href="#section-5" class="nav-group-toggle" onclick="navigateTo(event)">📅 Sprint Plan</a>
+                    <ul class="nav-sub">
+                        <li><a href="#sprint-1" onclick="navigateTo(event)">Sprint 1: Foundation</a></li>
+                        <li><a href="#sprint-2" onclick="navigateTo(event)">Sprint 2: Core Features</a></li>
+                        <li><a href="#sprint-3" onclick="navigateTo(event)">Sprint 3: Advanced</a></li>
+                        <li><a href="#sprint-4" onclick="navigateTo(event)">Sprint 4: Polish & Deploy</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-group">
+                    <a href="#section-6" class="nav-group-toggle" onclick="navigateTo(event)">🔗 Integration Plan</a>
+                    <ul class="nav-sub">
+                        <li><a href="#integration-flows" onclick="navigateTo(event)">Critical Integration Flows</a></li>
+                        <li><a href="#dependency-matrix" onclick="navigateTo(event)">Dependency Matrix</a></li>
+                        <li><a href="#parallel-work" onclick="navigateTo(event)">Parallel Work Opportunities</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-group">
+                    <a href="#section-7" class="nav-group-toggle" onclick="navigateTo(event)">⚖️ Workload Balancing</a>
+                    <ul class="nav-sub">
+                        <li><a href="#effort-estimation" onclick="navigateTo(event)">Effort by Member</a></li>
+                        <li><a href="#workload-analysis" onclick="navigateTo(event)">Workload Analysis</a></li>
+                        <li><a href="#workload-adjustment" onclick="navigateTo(event)">Workload Adjustment</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#section-8" onclick="navigateTo(event)">👥 Team Roles</a></li>
+
+                <li class="nav-group">
+                    <a href="#section-9" class="nav-group-toggle" onclick="navigateTo(event)">🏁 Success Criteria</a>
+                    <ul class="nav-sub">
+                        <li><a href="#milestones-sprint-1" onclick="navigateTo(event)">Sprint 1 Milestones</a></li>
+                        <li><a href="#milestones-sprint-2" onclick="navigateTo(event)">Sprint 2 Milestones</a></li>
+                        <li><a href="#milestones-sprint-3" onclick="navigateTo(event)">Sprint 3 Milestones</a></li>
+                        <li><a href="#milestones-sprint-4" onclick="navigateTo(event)">Sprint 4 Milestones</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-group">
+                    <a href="#section-10" class="nav-group-toggle" onclick="navigateTo(event)">📢 Presentation</a>
+                    <ul class="nav-sub">
+                        <li><a href="#talking-business-domain" onclick="navigateTo(event)">Business Domain Architecture</a></li>
+                        <li><a href="#talking-fair-distribution" onclick="navigateTo(event)">Fair Full-Stack Distribution</a></li>
+                        <li><a href="#talking-ai-strategy" onclick="navigateTo(event)">AI Strategy</a></li>
+                        <li><a href="#talking-sprint-philosophy" onclick="navigateTo(event)">Sprint Planning Philosophy</a></li>
+                        <li><a href="#talking-risk-mitigation" onclick="navigateTo(event)">Risk Mitigation</a></li>
+                        <li><a href="#talking-metrics" onclick="navigateTo(event)">Metrics for Success</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="main-content">
+        <!-- ============================================================ -->
+        <!-- SECTION 1: USE CASE ANALYSIS -->
+        <!-- ============================================================ -->
+        <div class="section" id="section-1">
+            <h2>📊 Use Case Analysis by Business Domain</h2>
+            
+            <p style="margin-bottom: 20px;">The Jalsa system has been analyzed into 8 major business domains with 52 total use cases. Each domain represents a cohesive set of business capabilities rather than technical layers.</p>
+
+            <div class="domain-grid">
+                <div class="domain-card" id="domain-auth">
+                    <h4>🔐 Authentication & Account Management</h4>
+                    <div class="use-case-count">7 Use Cases</div>
+                        <li>Login / Logout (Therapist)</li>
+                        <li>Reset Password</li>
+                        <li>Manage Profile</li>
+                        <li>Login / Logout (Patient)</li>
+                    </ul>
+                </div>
+
+                <div class="domain-card" id="domain-patient">
+                    <h4>👥 Patient Management</h4>
+                    <div class="use-case-count">8 Use Cases</div>
+                        <li>View & Search Patients</li>
+                        <li>Archive Patient</li>
+                        <li>Digital Intake Form</li>
+                        <li>Upload Intake Form Image</li>
+                        <li>Record Psychological Assessments</li>
+                    </ul>
+                </div>
+
+                <div class="domain-card" id="domain-session">
+                    <h4>📝 Session Management</h4>
+                    <div class="use-case-count">6 Use Cases</div>
+                        <li>View Session History</li>
+                        <li>Search Session Notes</li>
+                        <li>Record Voice Memo</li>
+                        <li>View AI Session Summary</li>
+                    </ul>
+                </div>
+
+                <div class="domain-card" id="domain-exercise">
+                    <h4>💪 Exercise Management</h4>
+                    <div class="use-case-count">10 Use Cases</div>
+                        <li>Extend Due Date</li>
+                        <li>Monitor Completion</li>
+                        <li>View Assigned Exercises (Patient)</li>
+                        <li>Mark Status & Submit Notes</li>
+                    </ul>
+                </div>
+
+                <div class="domain-card" id="domain-progress">
+                    <h4>📊 Progress Monitoring & Analytics</h4>
+                    <div class="use-case-count">4 Use Cases</div>
+                        <li>Assessment Trends</li>
+                        <li>Exercise Analytics</li>
+                        <li>Session Statistics</li>
+                    </ul>
+                </div>
+
+                <div class="domain-card" id="domain-chat">
+                    <h4>💬 Chat & Support Services</h4>
+                    <div class="use-case-count">7 Use Cases</div>
+                        <li>Crisis Alerts</li>
+                        <li>Start/Send Messages</li>
+                        <li>AI Responses</li>
+                        <li>Chat History</li>
+                    </ul>
+                </div>
+
+                <div class="domain-card" id="domain-reports">
+                    <h4>📋 AI Referral Reports</h4>
+                    <div class="use-case-count">7 Use Cases</div>
+                        <li>Review/Edit/Approve/Reject</li>
+                        <li>Export as PDF</li>
+                        <li>View Previous Reports</li>
+                    </ul>
+                </div>
+
+                <div class="domain-card" id="domain-ai">
+                    <h4>🤖 AI Services Infrastructure</h4>
+                    <div class="use-case-count">10 Use Cases</div>
+                        <li>Convert Voice Memo to Text</li>
+                        <li>Generate Embeddings</li>
+                        <li>Retrieve Context (RAG)</li>
+                        <li>Generate Reports/Responses</li>
+                        <li>Crisis Detection</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="success">
+                <strong>✓ Total: 52 Business Use Cases</strong> - All derived directly from the UML Use Case Diagram. Each use case is traceable to a business capability, not a technical layer.
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 2: DOMAIN OWNERSHIP MATRIX -->
+        <!-- ============================================================ -->
+        <div class="section" id="section-2">
+            <h2>👥 Domain Ownership Matrix</h2>
+            <p style="margin-bottom: 20px;">Strategic assignment of business domains to team members, ensuring full-stack involvement and balanced workload.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Business Domain</th>
+                        <th>Primary Owner</th>
+                        <th>Supporting Members</th>
+                        <th>Key Responsibilities</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="domain-name">🔐 Authentication & Account</span></td>
+                        <td><span class="owner">Salma</span></td>
+                        <td>Iman Wael, Yara</td>
+                        <td>JWT/Auth tokens, Password hashing, Profile API, Email integration</td>
+                    </tr>
+                    <tr>
+                        <td><span class="domain-name">👥 Patient Management</span></td>
+                        <td><span class="owner">Yara</span></td>
+                        <td>Salma, Mustafa</td>
+                        <td>Data models, CRUD operations, Search, UI forms, OCR integration</td>
+                    </tr>
+                    <tr>
+                        <td><span class="domain-name">📝 Session Management</span></td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td>Iman Wael, Mustafa</td>
+                        <td>Session notes, Voice recording, AI summarization, Voice-to-text</td>
+                    </tr>
+                    <tr>
+                        <td><span class="domain-name">💪 Exercise Management</span></td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td>Yara, Mustafa</td>
+                        <td>Exercise UI components, Assignment logic, Tracking interface, Mobile-responsive</td>
+                    </tr>
+                    <tr>
+                        <td><span class="domain-name">📊 Progress Monitoring</span></td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td>Yara, Mohammed</td>
+                        <td>Dashboard design, Analytics queries, Chart components, Data visualization</td>
+                    </tr>
+                    <tr>
+                        <td><span class="domain-name">💬 Chat & Support</span></td>
+                        <td><span class="owner">Salma</span></td>
+                        <td>Mustafa, Mohammed</td>
+                        <td>Real-time chat, Crisis detection logic, Chat UI, WebSocket implementation</td>
+                    </tr>
+                    <tr>
+                        <td><span class="domain-name">📋 AI Referral Reports</span></td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td>Salma, Yara</td>
+                        <td>Report generation pipeline, GPT integration, PDF export, Template design</td>
+                    </tr>
+                    <tr>
+                        <td><span class="domain-name">🤖 AI Services</span></td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td>Salma, Mohammed</td>
+                        <td>AI model integration, RAG pipeline, Embeddings, Voice processing, OCR</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="dependency-note">
+                <strong>✓ Ownership Model:</strong> Each domain has a primary owner responsible for full-stack implementation (backend logic + frontend UI + database design), with supporting members contributing to specific aspects.
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 3: USE CASE OWNERSHIP MATRIX -->
+        <!-- ============================================================ -->
+        <div class="section" id="section-3">
+            <h2>🎯 Use Case Ownership & Complexity Matrix</h2>
+            <p style="margin-bottom: 20px;">Detailed breakdown of all 52 use cases with ownership, complexity, and priority.</p>
+
+            <h3 id="tier-1">Tier 1: Authentication & Account Management (Owner: Salma)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Use Case</th>
+                        <th>Owner</th>
+                        <th>Complexity</th>
+                        <th>Priority</th>
+                        <th>Dependencies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Register Therapist Account</td>
+                        <td><span class="owner">Salma</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>Email Service</td>
+                    </tr>
+                    <tr>
+                        <td>Login (Therapist)</td>
+                        <td><span class="owner">Salma</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>Database, Auth Token</td>
+                    </tr>
+                    <tr>
+                        <td>Logout</td>
+                        <td><span class="owner">Salma</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Auth Token Management</td>
+                    </tr>
+                    <tr>
+                        <td>Reset Password</td>
+                        <td><span class="owner">Salma</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Email Service, Security</td>
+                    </tr>
+                    <tr>
+                        <td>Manage Profile</td>
+                        <td><span class="owner">Yara</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Backend Lead (API)</td>
+                    </tr>
+                    <tr>
+                        <td>Login (Patient)</td>
+                        <td><span class="owner">Salma</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>Therapist Login (same infra)</td>
+                    </tr>
+                    <tr>
+                        <td>Logout (Patient)</td>
+                        <td><span class="owner">Salma</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Auth Token Management</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 id="tier-2">Tier 2: Patient Management (Owner: Yara)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Use Case</th>
+                        <th>Owner</th>
+                        <th>Complexity</th>
+                        <th>Priority</th>
+                        <th>Dependencies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Create Patient Profile</td>
+                        <td><span class="owner">Yara</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>Authentication, Database</td>
+                    </tr>
+                    <tr>
+                        <td>Update Patient Profile</td>
+                        <td><span class="owner">Yara</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Create Patient (exists)</td>
+                    </tr>
+                    <tr>
+                        <td>View Patient Profile</td>
+                        <td><span class="owner">Mustafa</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Create Patient, Backend API</td>
+                    </tr>
+                    <tr>
+                        <td>Search Patients</td>
+                        <td><span class="owner">Yara</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Database indexing</td>
+                    </tr>
+                    <tr>
+                        <td>Archive Patient</td>
+                        <td><span class="owner">Yara</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-medium">Medium</span></td>
+                        <td>Create Patient, Search</td>
+                    </tr>
+                    <tr>
+                        <td>Complete Digital Intake Form</td>
+                        <td><span class="owner">Mustafa</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>Patient Profile, Form validation</td>
+                    </tr>
+                    <tr>
+                        <td>Upload Intake Form Image</td>
+                        <td><span class="owner">Yara</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>AI OCR extraction, Storage</td>
+                    </tr>
+                    <tr>
+                        <td>Record Psychological Assessments</td>
+                        <td><span class="owner">Yara</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Patient Profile, Database</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 id="tier-3">Tier 3: Session Management (Owner: Mohammed)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Use Case</th>
+                        <th>Owner</th>
+                        <th>Complexity</th>
+                        <th>Priority</th>
+                        <th>Dependencies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Create Session Note</td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>Patient Management, Authentication</td>
+                    </tr>
+                    <tr>
+                        <td>Edit Session Note</td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Create Session Note</td>
+                    </tr>
+                    <tr>
+                        <td>View Session History</td>
+                        <td><span class="owner">Mustafa</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Create Session Note</td>
+                    </tr>
+                    <tr>
+                        <td>Search Session Notes</td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Database indexing</td>
+                    </tr>
+                    <tr>
+                        <td>Record Voice Memo</td>
+                        <td><span class="owner">Mustafa</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Browser audio API, Storage</td>
+                    </tr>
+                    <tr>
+                        <td>View AI Session Summary</td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>AI Services, Session Notes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 id="tier-4">Tier 4: Exercise Management (Owner: Mohammed)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Use Case</th>
+                        <th>Owner</th>
+                        <th>Complexity</th>
+                        <th>Priority</th>
+                        <th>Dependencies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Assign Exercise</td>
+                        <td><span class="owner">Yara</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>Patient Management, Notification Service</td>
+                    </tr>
+                    <tr>
+                        <td>Update Exercise</td>
+                        <td><span class="owner">Mustafa</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Assign Exercise</td>
+                    </tr>
+                    <tr>
+                        <td>Extend Due Date</td>
+                        <td><span class="owner">Yara</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-medium">Medium</span></td>
+                        <td>Assign Exercise</td>
+                    </tr>
+                    <tr>
+                        <td>Deactivate Exercise</td>
+                        <td><span class="owner">Yara</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-medium">Medium</span></td>
+                        <td>Assign Exercise</td>
+                    </tr>
+                    <tr>
+                        <td>Monitor Exercise Completion</td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Patient side tracking</td>
+                    </tr>
+                    <tr>
+                        <td>View Assigned Exercises (Patient)</td>
+                        <td><span class="owner">Mustafa</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>Assign Exercise (therapist side)</td>
+                    </tr>
+                    <tr>
+                        <td>Mark Exercise as Completed</td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>View Assigned Exercises</td>
+                    </tr>
+                    <tr>
+                        <td>Mark Exercise as Partially Done</td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>View Assigned Exercises</td>
+                    </tr>
+                    <tr>
+                        <td>Mark Exercise as Skipped</td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-medium">Medium</span></td>
+                        <td>View Assigned Exercises</td>
+                    </tr>
+                    <tr>
+                        <td>Submit Reflection Notes</td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Exercise Status tracking</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 id="tier-5">Tier 5: Progress Monitoring & Analytics (Owner: Iman Wael)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Use Case</th>
+                        <th>Owner</th>
+                        <th>Complexity</th>
+                        <th>Priority</th>
+                        <th>Dependencies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>View Patient Progress Dashboard</td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>All patient domains</td>
+                    </tr>
+                    <tr>
+                        <td>View Assessment Trends</td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Patient Management assessments</td>
+                    </tr>
+                    <tr>
+                        <td>View Exercise Analytics</td>
+                        <td><span class="owner">Yara</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Exercise Management</td>
+                    </tr>
+                    <tr>
+                        <td>View Session Statistics</td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Session Management</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 id="tier-6">Tier 6: Chat & Support Services (Owner: Salma)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Use Case</th>
+                        <th>Owner</th>
+                        <th>Complexity</th>
+                        <th>Priority</th>
+                        <th>Dependencies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>View Chat Engagement Summary</td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Chat infrastructure</td>
+                    </tr>
+                    <tr>
+                        <td>Receive Crisis Alerts</td>
+                        <td><span class="owner">Salma</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>AI crisis detection, Notifications</td>
+                    </tr>
+                    <tr>
+                        <td>Start Support Chat</td>
+                        <td><span class="owner">Mustafa</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>WebSocket, AI Services</td>
+                    </tr>
+                    <tr>
+                        <td>Send Message</td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>Start Support Chat</td>
+                    </tr>
+                    <tr>
+                        <td>Receive AI Response</td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>AI Services (GPT-4o)</td>
+                    </tr>
+                    <tr>
+                        <td>View Chat History</td>
+                        <td><span class="owner">Mustafa</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Chat infrastructure</td>
+                    </tr>
+                    <tr>
+                        <td>Crisis Alert (Patient)</td>
+                        <td><span class="owner">Salma</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>Crisis detection, Notifications</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 id="tier-7">Tier 7: AI Referral Reports (Owner: Iman Wael)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Use Case</th>
+                        <th>Owner</th>
+                        <th>Complexity</th>
+                        <th>Priority</th>
+                        <th>Dependencies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Generate Referral Report</td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>Patient data, AI Services</td>
+                    </tr>
+                    <tr>
+                        <td>Review AI Generated Report</td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>Generate Referral Report</td>
+                    </tr>
+                    <tr>
+                        <td>Edit Report</td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Review Report</td>
+                    </tr>
+                    <tr>
+                        <td>Approve Report</td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>Edit Report</td>
+                    </tr>
+                    <tr>
+                        <td>Reject Report</td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Review Report</td>
+                    </tr>
+                    <tr>
+                        <td>Export Report as PDF</td>
+                        <td><span class="owner">Salma</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Approve Report, PDF library</td>
+                    </tr>
+                    <tr>
+                        <td>View Previous Reports</td>
+                        <td><span class="owner">Mustafa</span></td>
+                        <td><span class="complexity-low">Low</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Report storage</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 id="tier-8">Tier 8: AI Services Infrastructure (Owner: Iman Wael)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Use Case</th>
+                        <th>Owner</th>
+                        <th>Complexity</th>
+                        <th>Priority</th>
+                        <th>Dependencies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Extract Intake Form Data (OCR)</td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Vision API, Upload Form Image</td>
+                    </tr>
+                    <tr>
+                        <td>Convert Voice Memo to Text (STT)</td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Whisper API, Voice recording</td>
+                    </tr>
+                    <tr>
+                        <td>Generate Embeddings (RAG)</td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Vector database, Text data</td>
+                    </tr>
+                    <tr>
+                        <td>Retrieve Relevant Session Context</td>
+                        <td><span class="owner">Salma</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Vector database, Embeddings</td>
+                    </tr>
+                    <tr>
+                        <td>Summarize Patient History</td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>GPT-4o, Patient data</td>
+                    </tr>
+                    <tr>
+                        <td>Generate Referral Report Draft</td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>GPT-4o, Context retrieval</td>
+                    </tr>
+                    <tr>
+                        <td>Generate Support Responses (Chatbot)</td>
+                        <td><span class="owner">Mohammed</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>GPT-4o, Conversation history</td>
+                    </tr>
+                    <tr>
+                        <td>Maintain Conversation Memory</td>
+                        <td><span class="owner">Salma</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-high">High</span></td>
+                        <td>Chat database, Vector memory</td>
+                    </tr>
+                    <tr>
+                        <td>Detect Crisis Keywords (NLP)</td>
+                        <td><span class="owner">Iman Wael</span></td>
+                        <td><span class="complexity-high">High</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>NLP model, Crisis keywords list</td>
+                    </tr>
+                    <tr>
+                        <td>Escalate Crisis Alert</td>
+                        <td><span class="owner">Salma</span></td>
+                        <td><span class="complexity-medium">Medium</span></td>
+                        <td><span class="priority-critical">CRITICAL</span></td>
+                        <td>Notification Service</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 4: AI OWNERSHIP DISTRIBUTION -->
+        <!-- ============================================================ -->
+        <div class="section" id="section-4">
+            <h2>🤖 AI Ownership Matrix - Distributed Responsibility</h2>
+            <p style="margin-bottom: 20px;">AI capabilities are distributed across team members based on their technical strengths, ensuring multiple team members understand and own AI features.</p>
+
+            <h3 id="ai-iman">Iman Wael (Team Leader) - AI Orchestration & Strategic Services</h3>
+            <div class="team-member">
+                <strong>Primary AI Responsibilities:</strong>
+                <ul class="use-case-list">
+                    <li>Generate Referral Report Draft (GPT-4o integration)</li>
+                    <li>Summarize Patient History (NLP/Summarization)</li>
+                    <li>Generate Embeddings & RAG Pipeline</li>
+                    <li>Detect Crisis Keywords (Sentiment analysis)</li>
+                    <li>Extract Intake Form Data (Vision/OCR API)</li>
+                </ul>
+                <strong>Rationale:</strong> As leader, owns most complex AI decision-support use cases. Develops RAG pipeline architecture and crisis detection logic—critical for patient safety and referral quality.
+            </div>
+
+            <h3 id="ai-salma">Salma (Backend Lead) - AI Infrastructure & Integration</h3>
+            <div class="team-member">
+                <strong>Primary AI Responsibilities:</strong>
+                <ul class="use-case-list">
+                    <li>Retrieve Relevant Session Context (RAG execution)</li>
+                    <li>Maintain Conversation Memory (Vector DB, embedding retrieval)</li>
+                    <li>Escalate Crisis Alert (notification pipeline)</li>
+                    <li>AI Model API Gateway & Error Handling</li>
+                </ul>
+                <strong>Rationale:</strong> As backend lead, builds infrastructure for AI services. Owns vector database management, model API integration, and ensures reliable AI service availability.
+            </div>
+
+            <h3 id="ai-mustafa">Mustafa (Frontend Lead) - AI UI & User Experience</h3>
+            <div class="team-member">
+                <strong>Primary AI Responsibilities:</strong>
+                <ul class="use-case-list">
+                    <li>Display AI-generated reports & summaries</li>
+                    <li>Chat interface for AI support</li>
+                    <li>Voice memo recording UI</li>
+                    <li>Loading states & AI processing feedback</li>
+                </ul>
+                <strong>Rationale:</strong> As frontend lead, creates user-friendly interfaces for AI features. Ensures AI outputs are presented clearly and chat is responsive.
+            </div>
+
+            <h3 id="ai-yara">Yara (Full Stack Developer A) - Patient Data & OCR</h3>
+            <div class="team-member">
+                <strong>Primary AI Responsibilities:</strong>
+                <ul class="use-case-list">
+                    <li>Upload Intake Form Image & OCR integration</li>
+                    <li>Extract structured data from forms</li>
+                    <li>Data validation after OCR extraction</li>
+                </ul>
+                <strong>Rationale:</strong> Works with structured patient data and form processing. Owns OCR workflow and data quality validation.
+            </div>
+
+            <h3 id="ai-mohammed">Mohammed (Full Stack Developer B) - Voice & Conversational AI</h3>
+            <div class="team-member">
+                <strong>Primary AI Responsibilities:</strong>
+                <ul class="use-case-list">
+                    <li>Convert Voice Memo to Text (Whisper API)</li>
+                    <li>Generate Support Responses (Chatbot, GPT-4o)</li>
+                    <li>Real-time chat backend with AI</li>
+                    <li>Voice processing pipeline</li>
+                </ul>
+                <strong>Rationale:</strong> Specializes in voice processing and conversational AI. Owns voice transcription and chatbot response integration end-to-end.
+            </div>
+
+            <div class="success">
+                <strong>✓ AI Distribution Ensures:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>No single point of failure for AI features</li>
+                    <li>Knowledge sharing across team</li>
+                    <li>Parallel development of multiple AI services</li>
+                    <li>Proper segregation of concerns (OCR, Voice, Chatbot, Decision Support)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 5: 4-SPRINT EXECUTION PLAN -->
+        <!-- ============================================================ -->
+        <div class="section" id="section-5">
+            <h2>📅 4-Sprint Delivery Plan</h2>
+            <p style="margin-bottom: 20px;">Strategic sprint planning ensures foundation work is completed first, enabling parallel development in later sprints.</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <strong>Sprint 1</strong>
+                    <div style="font-size: 0.85em; color: #666;">Week 1-2</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <strong>Sprint 2</strong>
+                    <div style="font-size: 0.85em; color: #666;">Week 3-4</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <strong>Sprint 3</strong>
+                    <div style="font-size: 0.85em; color: #666;">Week 5-6</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <strong>Sprint 4</strong>
+                    <div style="font-size: 0.85em; color: #666;">Week 7-8</div>
+                </div>
+            </div>
+
+            <h3 id="sprint-1">🚀 Sprint 1: Foundation & Critical Infrastructure (Week 1-2)</h3>
+            <p style="margin-bottom: 15px; font-style: italic;">Focus: Authentication, database design, core APIs, UI framework</p>
+
+            <div class="sprint-box">
+                <h4>Iman Wael (Team Leader): AI Services Setup & Patient Dashboard Skeleton</h4>
+                <ul class="use-case-list">
+                    <li>Set up OpenAI GPT-4o integration & Whisper API</li>
+                    <li>Initialize vector database for embeddings</li>
+                    <li>Design RAG pipeline architecture</li>
+                    <li>Set up crisis detection keyword model</li>
+                    <li>Begin patient progress dashboard UI mockups</li>
+                </ul>
+                <strong>Deliverable:</strong> AI API wrapper, Vector DB schema, Crisis detection rules
+            </div>
+
+            <div class="sprint-box">
+                <h4>Salma (Backend Lead): Authentication & Core Infrastructure</h4>
+                <ul class="use-case-list">
+                    <li>Implement JWT authentication for Therapist & Patient</li>
+                    <li>Password hashing & Reset Password flow</li>
+                    <li>Database schema: Users, Patients, Sessions, Exercises</li>
+                    <li>Set up REST API framework & error handling</li>
+                    <li>Email service integration (SendGrid/nodemailer)</li>
+                </ul>
+                <strong>Deliverable:</strong> Auth API, Database schema, Email integration tested
+            </div>
+
+            <div class="sprint-box">
+                <h4>Mustafa (Frontend Lead): Design System & Auth UI</h4>
+                <ul class="use-case-list">
+                    <li>Create design system & component library</li>
+                    <li>Build login/register forms (Therapist & Patient)</li>
+                    <li>Password reset flow UI</li>
+                    <li>Responsive navigation & layout</li>
+                    <li>Connect to Salma's auth APIs</li>
+                </ul>
+                <strong>Deliverable:</strong> Design system, Auth UI components, Login flow end-to-end
+            </div>
+
+            <div class="sprint-box">
+                <h4>Yara (Full Stack Developer A): Patient Management Foundation</h4>
+                <ul class="use-case-list">
+                    <li>Create Patient Profile API (CRUD)</li>
+                    <li>Search Patients endpoint with filtering</li>
+                    <li>Patient profile UI form</li>
+                    <li>Archive patient functionality</li>
+                    <li>Database indexing for search optimization</li>
+                </ul>
+                <strong>Deliverable:</strong> Patient CRUD API, Search API, Patient profile UI
+            </div>
+
+            <div class="sprint-box">
+                <h4>Mohammed (Full Stack Developer B): Session Management Foundation</h4>
+                <ul class="use-case-list">
+                    <li>Create Session Note API (CRUD)</li>
+                    <li>Session search & filter endpoints</li>
+                    <li>View session history UI</li>
+                    <li>Basic voice memo recording setup</li>
+                    <li>Session database schema refinement</li>
+                </ul>
+                <strong>Deliverable:</strong> Session API, Session history UI, Voice recording component (basic)
+            </div>
+
+            <div class="critical-path">
+                <strong>⚠️ Sprint 1 Critical Path:</strong> All work depends on Salma's auth system. Start parallel after auth schema is ready.
+            </div>
+
+            <h3 id="sprint-2">📋 Sprint 2: Core Business Features (Week 3-4)</h3>
+            <p style="margin-bottom: 15px; font-style: italic;">Focus: Patient intake, exercise assignment, chat foundation, AI integration begins</p>
+
+            <div class="sprint-box">
+                <h4>Iman Wael (Team Leader): AI Report Generation & Crisis Detection</h4>
+                <ul class="use-case-list">
+                    <li>Implement OCR extraction (Vision API integration)</li>
+                    <li>Build generate referral report draft (GPT-4o)</li>
+                    <li>Implement crisis keyword detection logic</li>
+                    <li>Test RAG pipeline with sample patient data</li>
+                    <li>Build summarize patient history function</li>
+                </ul>
+                <strong>Deliverable:</strong> OCR working, Report draft API tested, Crisis detection active
+            </div>
+
+            <div class="sprint-box">
+                <h4>Salma (Backend Lead): Chat Infrastructure & Notifications</h4>
+                <ul class="use-case-list">
+                    <li>Set up WebSocket for real-time chat</li>
+                    <li>Chat message storage & retrieval API</li>
+                    <li>Implement notification service integration</li>
+                    <li>Crisis alert notification logic</li>
+                    <li>Exercise reminder notification setup</li>
+                </ul>
+                <strong>Deliverable:</strong> WebSocket server, Chat API, Notification pipeline
+            </div>
+
+            <div class="sprint-box">
+                <h4>Mustafa (Frontend Lead): Exercise Management UI & Chat Interface</h4>
+                <ul class="use-case-list">
+                    <li>Build exercise assignment form (Therapist)</li>
+                    <li>Exercise tracking UI (Patient view)</li>
+                    <li>Start support chat interface</li>
+                    <li>Real-time message display</li>
+                    <li>Exercise status update buttons</li>
+                </ul>
+                <strong>Deliverable:</strong> Exercise UI, Chat interface, Exercise tracking page
+            </div>
+
+            <div class="sprint-box">
+                <h4>Yara (Full Stack Developer A): Intake Forms & Data Processing</h4>
+                <ul class="use-case-list">
+                    <li>Build digital intake form (Patient)</li>
+                    <li>Upload intake form image handling</li>
+                    <li>Connect to OCR extraction (Iman Wael's AI)</li>
+                    <li>Form validation & error handling</li>
+                    <li>Store extracted data in database</li>
+                </ul>
+                <strong>Deliverable:</strong> Intake form UI, Form upload, OCR integration tested
+            </div>
+
+            <div class="sprint-box">
+                <h4>Mohammed (Full Stack Developer B): Voice Processing & Chat Backend</h4>
+                <ul class="use-case-list">
+                    <li>Implement voice memo recording (browser audio API)</li>
+                    <li>Integrate Whisper API for STT</li>
+                    <li>Store voice transcripts in database</li>
+                    <li>Build AI support response integration</li>
+                    <li>Conversation memory management</li>
+                </ul>
+                <strong>Deliverable:</strong> Voice recording, STT API working, Chat responses generated
+            </div>
+
+            <div class="dependency-note">
+                <strong>⚠️ Sprint 2 Dependencies:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Iman Wael's AI setup must be ready for Yara to use OCR</li>
+                    <li>Salma's WebSocket must be ready for Mohammed's chat responses</li>
+                    <li>Mustafa's chat UI enables Salma's message routing</li>
+                </ul>
+            </div>
+
+            <h3 id="sprint-3">🎯 Sprint 3: Advanced Features & Integration (Week 5-6)</h3>
+            <p style="margin-bottom: 15px; font-style: italic;">Focus: Analytics, report review/approval, psychological assessments, AI refinement</p>
+
+            <div class="sprint-box">
+                <h4>Iman Wael (Team Leader): Reporting & Analytics</h4>
+                <ul class="use-case-list">
+                    <li>Build patient progress dashboard</li>
+                    <li>Assessment trends visualization</li>
+                    <li>Session statistics aggregation</li>
+                    <li>Implement generate embeddings for knowledge base</li>
+                    <li>Test RAG context retrieval with multiple patient profiles</li>
+                </ul>
+                <strong>Deliverable:</strong> Dashboard live, Embeddings in production, Analytics endpoints
+            </div>
+
+            <div class="sprint-box">
+                <h4>Salma (Backend Lead): Report Management & Crisis Response</h4>
+                <ul class="use-case-list">
+                    <li>Build report approval/rejection workflow API</li>
+                    <li>PDF export functionality</li>
+                    <li>Previous reports retrieval</li>
+                    <li>Crisis alert escalation logic</li>
+                    <li>Conversation memory persistence</li>
+                </ul>
+                <strong>Deliverable:</strong> Report API complete, PDF export working, Crisis flow tested
+            </div>
+
+            <div class="sprint-box">
+                <h4>Mustafa (Frontend Lead): Report Review UI & Analytics Views</h4>
+                <ul class="use-case-list">
+                    <li>Build report review interface (approve/reject)</li>
+                    <li>Display AI-generated report summaries</li>
+                    <li>View previous reports page</li>
+                    <li>Exercise analytics dashboard</li>
+                    <li>Session statistics charts</li>
+                </ul>
+                <strong>Deliverable:</strong> Report review UI, Analytics dashboards, All views responsive
+            </div>
+
+            <div class="sprint-box">
+                <h4>Yara (Full Stack Developer A): Assessment Recording & Exercise Analytics</h4>
+                <ul class="use-case-list">
+                    <li>Build psychological assessment recording form</li>
+                    <li>Assessment data storage & retrieval</li>
+                    <li>Exercise completion analytics API</li>
+                    <li>Monitor exercise completion logic</li>
+                    <li>Due date extension workflow</li>
+                </ul>
+                <strong>Deliverable:</strong> Assessment recording working, Exercise analytics API
+            </div>
+
+            <div class="sprint-box">
+                <h4>Mohammed (Full Stack Developer B): Chat Engagement Monitoring & Voice Enhancements</h4>
+                <ul class="use-case-list">
+                    <li>Implement chat engagement summary for Therapist</li>
+                    <li>Crisis alert display in Therapist chat monitor</li>
+                    <li>Enhanced voice memo transcription UI</li>
+                    <li>Display AI session summary in chat</li>
+                    <li>Performance optimization for real-time chat</li>
+                </ul>
+                <strong>Deliverable:</strong> Chat monitoring UI, Crisis alerts visible, Voice enhanced
+            </div>
+
+            <div class="dependency-note">
+                <strong>ℹ️ Sprint 3 Focus:</strong> All foundation work from Sprints 1-2 should be complete. This sprint finalizes features and integrates everything together.
+            </div>
+
+            <h3 id="sprint-4">✨ Sprint 4: Polish, Testing & Deployment (Week 7-8)</h3>
+            <p style="margin-bottom: 15px; font-style: italic;">Focus: Bug fixes, security hardening, performance optimization, documentation, deployment preparation</p>
+
+            <div class="sprint-box">
+                <h4>Iman Wael (Team Leader): AI Optimization & Final Integration</h4>
+                <ul class="use-case-list">
+                    <li>Optimize RAG pipeline performance</li>
+                    <li>Fine-tune crisis detection accuracy</li>
+                    <li>Test AI services under load</li>
+                    <li>Documentation of AI integration</li>
+                    <li>Review and finalize all use cases</li>
+                </ul>
+                <strong>Deliverable:</strong> AI services optimized, Documentation complete, Ready for production
+            </div>
+
+            <div class="sprint-box">
+                <h4>Salma (Backend Lead): Security & Infrastructure Hardening</h4>
+                <ul class="use-case-list">
+                    <li>Implement authentication security best practices</li>
+                    <li>Data encryption at rest & in transit</li>
+                    <li>Rate limiting & DDoS protection</li>
+                    <li>Database backup & recovery testing</li>
+                    <li>API security audit</li>
+                </ul>
+                <strong>Deliverable:</strong> Security audit passed, All APIs hardened, Deployment ready
+            </div>
+
+            <div class="sprint-box">
+                <h4>Mustafa (Frontend Lead): UI Polish & Accessibility</h4>
+                <ul class="use-case-list">
+                    <li>Cross-browser & device testing</li>
+                    <li>Accessibility (WCAG) compliance</li>
+                    <li>Performance optimization (bundling, lazy loading)</li>
+                    <li>UI/UX refinement based on testing</li>
+                    <li>Dark mode support (optional)</li>
+                </ul>
+                <strong>Deliverable:</strong> UI polished, Accessibility tested, Performance optimized
+            </div>
+
+            <div class="sprint-box">
+                <h4>Yara (Full Stack Developer A): Testing & Data Validation</h4>
+                <ul class="use-case-list">
+                    <li>End-to-end testing of patient workflows</li>
+                    <li>Data validation testing</li>
+                    <li>Search & filtering optimization</li>
+                    <li>Bug fixes & regression testing</li>
+                    <li>Performance testing under load</li>
+                </ul>
+                <strong>Deliverable:</strong> All patient features tested, No critical bugs, Ready for production
+            </div>
+
+            <div class="sprint-box">
+                <h4>Mohammed (Full Stack Developer B): Chat & Voice Testing</h4>
+                <ul class="use-case-list">
+                    <li>End-to-end chat workflow testing</li>
+                    <li>Voice recording & transcription testing</li>
+                    <li>Real-time communication stress testing</li>
+                    <li>Crisis detection accuracy testing</li>
+                    <li>Integration testing with all services</li>
+                </ul>
+                <strong>Deliverable:</strong> All chat features tested, Crisis flow verified, Production ready
+            </div>
+
+            <div class="success">
+                <strong>✓ Sprint 4 Deliverables:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>All 52 use cases implemented & tested</li>
+                    <li>Security audit passed</li>
+                    <li>Performance benchmarks met</li>
+                    <li>Documentation & runbooks complete</li>
+                    <li>Ready for production deployment</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 6: INTEGRATION & DEPENDENCY ANALYSIS -->
+        <!-- ============================================================ -->
+        <div class="section" id="section-6">
+            <h2>🔗 Integration Plan & Dependency Analysis</h2>
+
+            <h3 id="integration-flows">Critical Integration Flows</h3>
+
+            <div class="integration-flow">
+                <h4>🩺 Patient Intake & OCR Integration</h4>
+                <div class="flow-step">Patient uploads intake form image</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Full Stack A: Image sent to Team Leader's OCR service</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Team Leader: Vision API extracts structured data</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Full Stack A: Validates & stores in Patient profile</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">✓ Patient intake form complete</div>
+            </div>
+
+            <div class="integration-flow">
+                <h4>🎤 Voice Memo & Transcription Pipeline</h4>
+                <div class="flow-step">Therapist records voice memo in session note</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Frontend Lead: Records audio via browser API</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Full Stack B: Uploads audio to storage</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Full Stack B: Sends to Team Leader's Whisper API</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Team Leader: Returns transcription</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Full Stack B: Stores transcript in session note</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">✓ Voice memo transcribed</div>
+            </div>
+
+            <div class="integration-flow">
+                <h4>📋 Report Generation Pipeline (Core AI Feature)</h4>
+                <div class="flow-step">Therapist requests to generate referral report</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Team Leader: Fetches patient history, assessments, sessions</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Team Leader: Uses RAG to retrieve relevant session context</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Team Leader: Generates report draft via GPT-4o</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Frontend Lead: Displays report for review</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Therapist: Edits, approves, or rejects report</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Backend Lead: Exports to PDF on approval</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">✓ Report generation complete</div>
+            </div>
+
+            <div class="integration-flow">
+                <h4>💬 Patient Chat with AI & Crisis Detection</h4>
+                <div class="flow-step">Patient sends message in support chat</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Frontend Lead: WebSocket sends message to Backend</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Backend Lead: Stores message, retrieves conversation history</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Full Stack B: Sends to GPT-4o for response generation</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Team Leader: Analyzes message for crisis keywords (NLP)</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">IF crisis detected → Backend Lead: Triggers crisis alert</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Backend Lead: Sends notification to therapist via Notification Service</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Frontend Lead: Displays response & crisis alert (if needed)</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">✓ Chat message processed with safety monitoring</div>
+            </div>
+
+            <div class="integration-flow">
+                <h4>📊 Analytics & Dashboard Data Aggregation</h4>
+                <div class="flow-step">Therapist opens patient progress dashboard</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Frontend Lead: Requests analytics from Team Leader's endpoint</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Team Leader: Aggregates assessments, exercises, sessions</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Full Stack A: Provides exercise completion statistics</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Full Stack B: Provides session statistics</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">Frontend Lead: Renders charts & visualizations</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">✓ Dashboard displays consolidated patient progress</div>
+            </div>
+
+            <h3 id="dependency-matrix">Dependency Matrix</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature/Service</th>
+                        <th>Depends On</th>
+                        <th>Enables</th>
+                        <th>Sprint Ready</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Authentication</strong></td>
+                        <td>Database, Email Service</td>
+                        <td>All features (blocking)</td>
+                        <td>Sprint 1</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Patient Management</strong></td>
+                        <td>Authentication</td>
+                        <td>Intake forms, Assessments, Sessions, Analytics</td>
+                        <td>Sprint 1</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Session Management</strong></td>
+                        <td>Patient Management</td>
+                        <td>Reports, Analytics, Voice processing</td>
+                        <td>Sprint 1</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Exercise Management</strong></td>
+                        <td>Patient Management, Notification Service</td>
+                        <td>Patient exercise tracking, Analytics</td>
+                        <td>Sprint 2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI Services (OCR)</strong></td>
+                        <td>Vision API key, Storage service</td>
+                        <td>Intake form extraction</td>
+                        <td>Sprint 2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI Services (Voice-to-Text)</strong></td>
+                        <td>Whisper API key, Audio recording</td>
+                        <td>Voice memo processing</td>
+                        <td>Sprint 2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI Services (RAG)</strong></td>
+                        <td>Vector DB, Embeddings model, Patient data</td>
+                        <td>Report generation, Context retrieval</td>
+                        <td>Sprint 2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI Services (Report Generation)</strong></td>
+                        <td>GPT-4o API, RAG, Patient history</td>
+                        <td>Report review/approval flow</td>
+                        <td>Sprint 2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Chat Infrastructure (WebSocket)</strong></td>
+                        <td>Backend server, Database</td>
+                        <td>Real-time chat, AI responses</td>
+                        <td>Sprint 2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Crisis Detection</strong></td>
+                        <td>NLP model, Chat messages, Keyword list</td>
+                        <td>Crisis alerts, Escalation</td>
+                        <td>Sprint 2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Notification Service</strong></td>
+                        <td>External service provider</td>
+                        <td>Exercise reminders, Crisis alerts, Password reset</td>
+                        <td>Sprint 2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Analytics & Dashboard</strong></td>
+                        <td>All data sources (sessions, exercises, assessments)</td>
+                        <td>Reporting, Decision support</td>
+                        <td>Sprint 3</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="critical-path">
+                <strong>🔴 Critical Path (Must Complete On Time):</strong>
+                <div style="margin-top: 10px;">
+                    Authentication (Sprint 1) → Patient Management (Sprint 1) → Intake Forms (Sprint 2) → OCR/AI Services (Sprint 2) → Report Generation (Sprint 2) → Report Review UI (Sprint 3) → Analytics (Sprint 3)
+                </div>
+            </div>
+
+            <h3 id="parallel-work">Parallel Work Opportunities</h3>
+            <div class="success">
+                <strong>✓ These can be developed in parallel (no blocking dependencies):</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li><strong>Sprint 1:</strong> Backend Lead (Auth) + Full Stack A (Patient) + Full Stack B (Sessions) + Frontend Lead (UI) = 100% parallel</li>
+                    <li><strong>Sprint 2:</strong> Team Leader (AI) + Backend Lead (Chat) + Full Stack A (Intake) + Full Stack B (Voice) = 100% parallel</li>
+                    <li><strong>Sprint 3:</strong> All members can work on different analytics & refinement tasks independently</li>
+                    <li><strong>Sprint 4:</strong> Parallel testing, optimization, documentation</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 7: WORKLOAD BALANCING & VERIFICATION -->
+        <!-- ============================================================ -->
+        <div class="section" id="section-7">
+            <h2>⚖️ Workload Balancing & Verification</h2>
+
+            <h3 id="effort-estimation">Effort Estimation by Member</h3>
+
+            <div class="workload-container">
+                <div class="workload-item">
+                    <strong style="color: #185FA5;">Iman Wael (Team Leader) - 100%</strong>
+                    <div class="workload-bar">
+                        <div class="workload-fill" style="width: 100%;">100%</div>
+                    </div>
+                    <small>• 10 use cases (AI orchestration, reports, analytics, dashboard)</small><br>
+                    <small>• Sprint 1: AI setup (high effort)</small><br>
+                    <small>• Sprint 2-3: AI integration + reporting (high effort)</small><br>
+                    <small>• Sprint 4: Optimization + documentation</small>
+                </div>
+
+                <div class="workload-item">
+                    <strong style="color: #0F6E56;">Salma (Backend Lead) - 95%</strong>
+                    <div class="workload-bar">
+                        <div class="workload-fill" style="width: 95%;">95%</div>
+                    </div>
+                    <small>• 9 use cases (auth, chat, infrastructure, notifications)</small><br>
+                    <small>• Sprint 1: Authentication system (high effort, blocking all)</small><br>
+                    <small>• Sprint 2: WebSocket, notifications (medium effort)</small><br>
+                    <small>• Sprint 3: PDF export, crisis flow (medium effort)</small><br>
+                    <small>• Sprint 4: Security hardening</small>
+                </div>
+
+                <div class="workload-item">
+                    <strong style="color: #185FA5;">Mustafa (Frontend Lead) - 98%</strong>
+                    <div class="workload-bar">
+                        <div class="workload-fill" style="width: 98%;">98%</div>
+                    </div>
+                    <small>• 12 use cases (UI/UX design, forms, dashboards, chat interface)</small><br>
+                    <small>• Sprint 1: Design system + auth UI (high effort)</small><br>
+                    <small>• Sprint 2: Exercise + chat UI (high effort)</small><br>
+                    <small>• Sprint 3: Analytics views + report review (high effort)</small><br>
+                    <small>• Sprint 4: Polish + accessibility testing</small>
+                </div>
+
+                <div class="workload-item">
+                    <strong style="color: #533AB7;">Yara (Full Stack Developer A) - 102%</strong>
+                    <div class="workload-bar">
+                        <div class="workload-fill" style="width: 102%;">102%</div>
+                    </div>
+                    <small>• 12 use cases (patient management, intake forms, assessments, analytics)</small><br>
+                    <small>• Sprint 1: Patient CRUD API + schema (high effort)</small><br>
+                    <small>• Sprint 2: Intake forms + OCR integration (high effort)</small><br>
+                    <small>• Sprint 3: Assessment recording + analytics (medium effort)</small><br>
+                    <small>• Sprint 4: Testing + performance optimization</small>
+                </div>
+
+                <div class="workload-item">
+                    <strong style="color: #854F0B;">Mohammed (Full Stack Developer B) - 100%</strong>
+                    <div class="workload-bar">
+                        <div class="workload-fill" style="width: 100%;">100%</div>
+                    </div>
+                    <small>• 11 use cases (sessions, chat, voice processing, AI responses)</small><br>
+                    <small>• Sprint 1: Session API + voice foundation (medium effort)</small><br>
+                    <small>• Sprint 2: Voice transcription + chat responses (high effort)</small><br>
+                    <small>• Sprint 3: Chat monitoring + enhancements (medium effort)</small><br>
+                    <small>• Sprint 4: Testing + optimization</small>
+                </div>
+            </div>
+
+            <h3 id="workload-analysis">Workload Analysis</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Team Member</th>
+                        <th>Use Cases Owned</th>
+                        <th>Backend Work</th>
+                        <th>Frontend Work</th>
+                        <th>AI/Complex</th>
+                        <th>Estimated %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Iman Wael (Team Leader)</strong></td>
+                        <td>10</td>
+                        <td>5 (AI orchestration)</td>
+                        <td>1 (dashboard UI)</td>
+                        <td>5 (high)</td>
+                        <td>100% ✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Salma (Backend Lead)</strong></td>
+                        <td>9</td>
+                        <td>9 (infrastructure)</td>
+                        <td>0</td>
+                        <td>2 (moderate)</td>
+                        <td>95% ✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mustafa (Frontend Lead)</strong></td>
+                        <td>12</td>
+                        <td>2 (supporting)</td>
+                        <td>12 (design system, UI)</td>
+                        <td>1 (moderate)</td>
+                        <td>98% ✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Yara (Full Stack A)</strong></td>
+                        <td>12</td>
+                        <td>6 (patient APIs)</td>
+                        <td>6 (patient forms)</td>
+                        <td>3 (OCR integration)</td>
+                        <td>102% ⚠️</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mohammed (Full Stack B)</strong></td>
+                        <td>11</td>
+                        <td>6 (session APIs)</td>
+                        <td>5 (UI components)</td>
+                        <td>3 (voice, chatbot)</td>
+                        <td>100% ✓</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 id="workload-adjustment">Workload Adjustment for Full Stack Developer A</h3>
+            <div class="dependency-note">
+                <strong>⚠️ Observation:</strong> Yara is at 102% workload. This is acceptable as:
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Patient management is foundational and reduces risk</li>
+                    <li>Many of their tasks are <strong>medium complexity</strong> (not high)</li>
+                    <li>Mustafa supports with patient UI forms</li>
+                    <li>In Sprint 2, they have time to absorb OCR integration complexity</li>
+                    <li>If overloaded, move "Exercise Analytics" to Iman Wael or "Patient Profile UI" to Mustafa</li>
+                </ul>
+                <strong>Mitigation:</strong> Yara focuses on backend APIs first, Mustafa handles UI in parallel.
+            </div>
+
+            <div class="success">
+                <strong>✓ Workload Balancing Achieved:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>All team members have 95-102% workload (balanced)</li>
+                    <li>Each member owns full-stack features (backend + frontend + database)</li>
+                    <li>No person is blocked waiting for others</li>
+                    <li>Parallel development maximized across all 4 sprints</li>
+                    <li>Critical infrastructure (auth, AI) owned by appropriate leads</li>
+                    <li>Sprint 4 allows time for refinement without rushing</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 8: TEAM RESPONSIBILITIES SUMMARY -->
+        <!-- ============================================================ -->
+        <div class="section" id="section-8">
+            <h2>👥 Team Responsibilities at a Glance</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Primary Domains</th>
+                        <th>Technical Specialization</th>
+                        <th>Key Deliverables</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><span class="team-role">Iman Wael (Team Leader)</span></strong></td>
+                        <td>
+                            • AI Services Infrastructure<br>
+                            • AI Referral Reports<br>
+                            • Progress Monitoring<br>
+                            • Chat Monitoring
+                        </td>
+                        <td>
+                            • GPT-4o integration<br>
+                            • RAG pipeline<br>
+                            • Vector databases<br>
+                            • NLP/Crisis detection<br>
+                            • Business logic
+                        </td>
+                        <td>
+                            • Report generation system<br>
+                            • Crisis detection engine<br>
+                            • Analytics dashboard<br>
+                            • AI orchestration layer
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="team-role">Salma (Backend Lead)</span></strong></td>
+                        <td>
+                            • Authentication & Account<br>
+                            • Authorization<br>
+                            • Infrastructure<br>
+                            • Chat Foundation<br>
+                            • Notifications
+                        </td>
+                        <td>
+                            • JWT/OAuth<br>
+                            • REST API design<br>
+                            • WebSocket real-time<br>
+                            • Database design<br>
+                            • Security hardening
+                        </td>
+                        <td>
+                            • Auth system (JWT)<br>
+                            • REST API framework<br>
+                            • WebSocket server<br>
+                            • Database schema<br>
+                            • Notification pipeline
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="team-role">Mustafa (Frontend Lead)</span></strong></td>
+                        <td>
+                            • Design System<br>
+                            • User Experience<br>
+                            • Exercise Management UI<br>
+                            • Session UI<br>
+                            • Chat Interface
+                        </td>
+                        <td>
+                            • React/Vue<br>
+                            • Component design<br>
+                            • Responsive design<br>
+                            • Accessibility<br>
+                            • Performance optimization
+                        </td>
+                        <td>
+                            • Component library<br>
+                            • Auth UI/Forms<br>
+                            • Exercise tracking UI<br>
+                            • Chat interface<br>
+                            • Analytics dashboards
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="team-role">Yara (Full Stack A)</span></strong></td>
+                        <td>
+                            • Patient Management<br>
+                            • Intake Forms<br>
+                            • Assessments<br>
+                            • Exercise Analytics<br>
+                            • Search & Filtering
+                        </td>
+                        <td>
+                            • Database modeling<br>
+                            • CRUD operations<br>
+                            • Search optimization<br>
+                            • Form validation<br>
+                            • OCR integration
+                        </td>
+                        <td>
+                            • Patient API (CRUD)<br>
+                            • Search endpoints<br>
+                            • Intake form system<br>
+                            • Assessment recording<br>
+                            • Analytics queries
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="team-role">Mohammed (Full Stack B)</span></strong></td>
+                        <td>
+                            • Session Management<br>
+                            • Voice Processing<br>
+                            • Chat & Support<br>
+                            • Real-time Features<br>
+                            • Transcription Pipeline
+                        </td>
+                        <td>
+                            • WebSocket communication<br>
+                            • Voice processing (STT)<br>
+                            • Real-time sync<br>
+                            • Chatbot integration<br>
+                            • Audio recording (browser)
+                        </td>
+                        <td>
+                            • Session API (CRUD)<br>
+                            • Voice recording component<br>
+                            • Chat messaging system<br>
+                            • STT integration<br>
+                            • AI response routing
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 9: SUCCESS CRITERIA & MILESTONES -->
+        <!-- ============================================================ -->
+        <div class="section" id="section-9">
+            <h2>🏁 Success Criteria & Key Milestones</h2>
+
+            <h3 id="milestones-sprint-1">Sprint 1 Milestones (Week 1-2)</h3>
+            <div class="success">
+                <strong>✓ Authentication system production-ready:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Therapist and Patient can register and login</li>
+                    <li>JWT tokens working correctly</li>
+                    <li>Password reset email flow tested</li>
+                </ul>
+            </div>
+            <div class="success">
+                <strong>✓ Patient management MVP:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Create/view/update patient profiles</li>
+                    <li>Search patients functionality</li>
+                    <li>Patient data stored securely</li>
+                </ul>
+            </div>
+            <div class="success">
+                <strong>✓ Session management foundation:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Create/view session notes</li>
+                    <li>Session history retrieval</li>
+                    <li>Database optimizations for performance</li>
+                </ul>
+            </div>
+            <div class="success">
+                <strong>✓ Design system delivered:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Component library documented</li>
+                    <li>Auth UI fully functional</li>
+                    <li>Responsive on all devices</li>
+                </ul>
+            </div>
+
+            <h3 id="milestones-sprint-2">Sprint 2 Milestones (Week 3-4)</h3>
+            <div class="success">
+                <strong>✓ AI services operational:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>OCR extraction working (Vision API)</li>
+                    <li>Voice transcription working (Whisper API)</li>
+                    <li>RAG pipeline retrieving relevant context</li>
+                    <li>Crisis detection keywords loaded</li>
+                </ul>
+            </div>
+            <div class="success">
+                <strong>✓ Intake forms with AI integration:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Digital intake form completed</li>
+                    <li>Image upload with OCR extraction working</li>
+                    <li>Structured data validation</li>
+                </ul>
+            </div>
+            <div class="success">
+                <strong>✓ Real-time chat foundation:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>WebSocket communication working</li>
+                    <li>Chat messages storing/retrieving</li>
+                    <li>AI responses generating</li>
+                    <li>Crisis alerts triggered</li>
+                </ul>
+            </div>
+            <div class="success">
+                <strong>✓ Exercise assignment system:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Therapist can assign exercises</li>
+                    <li>Patient can view and track exercises</li>
+                    <li>Completion status recorded</li>
+                </ul>
+            </div>
+
+            <h3 id="milestones-sprint-3">Sprint 3 Milestones (Week 5-6)</h3>
+            <div class="success">
+                <strong>✓ Report generation system live:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Reports auto-generated from patient data</li>
+                    <li>Therapist can review/approve/reject</li>
+                    <li>PDF export working</li>
+                </ul>
+            </div>
+            <div class="success">
+                <strong>✓ Analytics dashboards complete:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Patient progress dashboard showing all metrics</li>
+                    <li>Assessment trends visualized</li>
+                    <li>Exercise analytics visible</li>
+                    <li>Session statistics displayed</li>
+                </ul>
+            </div>
+            <div class="success">
+                <strong>✓ Chat monitoring for therapists:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Therapist sees chat engagement summary</li>
+                    <li>Crisis alerts prominent and actionable</li>
+                    <li>Conversation history searchable</li>
+                </ul>
+            </div>
+            <div class="success">
+                <strong>✓ Psychological assessments recorded:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Assessment data capture working</li>
+                    <li>Assessment trends available for analytics</li>
+                </ul>
+            </div>
+
+            <h3 id="milestones-sprint-4">Sprint 4 Milestones (Week 7-8)</h3>
+            <div class="success">
+                <strong>✓ All 52 use cases implemented & tested:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>100% use case coverage</li>
+                    <li>End-to-end testing complete</li>
+                    <li>No critical bugs</li>
+                </ul>
+            </div>
+            <div class="success">
+                <strong>✓ Security audit passed:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Authentication security best practices</li>
+                    <li>Data encryption at rest & in transit</li>
+                    <li>API rate limiting & DDoS protection</li>
+                    <li>Database backup/recovery tested</li>
+                </ul>
+            </div>
+            <div class="success">
+                <strong>✓ Performance optimized:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>API response times < 200ms</li>
+                    <li>Frontend bundle size optimized</li>
+                    <li>Database queries efficient</li>
+                    <li>AI services latency acceptable</li>
+                </ul>
+            </div>
+            <div class="success">
+                <strong>✓ Production deployment ready:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Documentation complete</li>
+                    <li>Deployment runbooks prepared</li>
+                    <li>Monitoring & logging configured</li>
+                    <li>Team trained on system</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 10: FINAL NOTES FOR DEFENSE -->
+        <!-- ============================================================ -->
+        <div class="section" id="section-10">
+            <h2>📢 Presentation Talking Points</h2>
+
+            <h3 id="talking-business-domain">Business Domain Driven Architecture</h3>
+            <div class="team-member">
+                <strong>Key Message:</strong>
+                <p style="margin-top: 10px;">
+                    Instead of organizing by technical layers (Frontend/Backend/Database), we've organized Jalsa by 8 business domains that map directly to the UML Use Case Diagram. This ensures:
+                </p>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li><strong>Requirements traceability:</strong> Every task is traceable to a use case</li>
+                    <li><strong>Business value:</strong> Team understands what users need, not just technical tasks</li>
+                    <li><strong>Reduced rework:</strong> Clear ownership prevents duplicate/conflicting work</li>
+                    <li><strong>Easier testing:</strong> Each domain has clear acceptance criteria from use cases</li>
+                </ul>
+            </div>
+
+            <h3 id="talking-fair-distribution">Fair Full-Stack Distribution</h3>
+            <div class="team-member">
+                <strong>Key Message:</strong>
+                <p style="margin-top: 10px;">
+                    Every team member owns complete business features from database to UI, not just one technical layer. This ensures:
+                </p>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li><strong>Cross-functional expertise:</strong> Everyone learns full-stack development</li>
+                    <li><strong>No bottlenecks:</strong> Each member can work independently</li>
+                    <li><strong>Knowledge distribution:</strong> Knowledge isn't siloed to one person</li>
+                    <li><strong>Career growth:</strong> Team members develop diverse skills</li>
+                </ul>
+            </div>
+
+            <h3 id="talking-ai-strategy">AI Strategy</h3>
+            <div class="team-member">
+                <strong>Key Message:</strong>
+                <p style="margin-top: 10px;">
+                    Rather than having one person "own AI," we've distributed AI features based on technical fit:
+                </p>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li><strong>Iman (Team Leader):</strong> Strategic AI (Reports, crisis detection, RAG)</li>
+                    <li><strong>Salma (Backend Lead):</strong> AI infrastructure (RAG execution, API gateway, crisis alerts)</li>
+                    <li><strong>Mustafa (Frontend Lead):</strong> AI UI (report display, chat interface, voice recording UI)</li>
+                    <li><strong>Mohammed (Full Stack B):</strong> Conversational AI (Chatbot, voice/STT)</li>
+                    <li><strong>Yara (Full Stack A):</strong> Data extraction (OCR integration)</li>
+                    <li><strong>Result:</strong> Multiple team members understand AI, reducing knowledge risk</li>
+                </ul>
+            </div>
+
+            <h3 id="talking-sprint-philosophy">Sprint Planning Philosophy</h3>
+            <div class="team-member">
+                <strong>Key Message:</strong>
+                <p style="margin-top: 10px;">
+                    Sprints are organized by business value & dependencies, not technical layers:
+                </p>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li><strong>Sprint 1:</strong> Build foundation (auth, patient base, sessions)</li>
+                    <li><strong>Sprint 2:</strong> Core features (intake forms, exercises, AI basics)</li>
+                    <li><strong>Sprint 3:</strong> Advanced features (reports, analytics, chat refinement)</li>
+                    <li><strong>Sprint 4:</strong> Polish, security, documentation</li>
+                    <li><strong>Result:</strong> Testable increments every 2 weeks, early feedback</li>
+                </ul>
+            </div>
+
+            <h3 id="talking-risk-mitigation">Risk Mitigation</h3>
+            <div class="team-member">
+                <strong>Key Risks Addressed:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li><strong>AI Integration Complexity:</strong> Started early (Sprint 2), distributed knowledge</li>
+                    <li><strong>Real-time Chat Performance:</strong> WebSocket infrastructure prioritized in Sprint 2</li>
+                    <li><strong>Patient Safety (Crisis Detection):</strong> Owned by Team Leader, multiple testing cycles</li>
+                    <li><strong>Data Security:</strong> Backend Lead focuses on auth & encryption</li>
+                    <li><strong>UI/UX Quality:</strong> Frontend Lead owns design system & all UI components</li>
+                </ul>
+            </div>
+
+            <h3 id="talking-metrics">Metrics for Success</h3>
+            <div class="team-member">
+                <strong>Measurable Outcomes:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li><strong>Scope:</strong> All 52 use cases implemented by end of Sprint 4</li>
+                    <li><strong>Quality:</strong> <200ms API response time, 0 critical bugs in production</li>
+                    <li><strong>Coverage:</strong> 100% feature parity with Use Case Diagram</li>
+                    <li><strong>Team Velocity:</strong> Predictable sprint delivery, 95%+ completion rate</li>
+                    <li><strong>Documentation:</strong> Every feature documented with clear runbooks</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Jalsa – AI-Powered Mental Health Clinic Management System</strong></p>
+            <p>Project Roadmap & Team Execution Plan</p>
+            <p class="version-info">
+                Version: 1.0 | Generated: June 2026 | For ITI Graduation Project & Final Defense
+            </p>
+            <p style="margin-top: 20px; font-size: 0.9em; color: #999;">
+                This roadmap is based on comprehensive analysis of the UML Use Case Diagram.
+                All tasks are traceable to business use cases, not technical layers.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function scrollToTop(event) {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setActiveLink(event.currentTarget);
+        }
+
+        function navigateTo(event) {
+            event.preventDefault();
+            const link = event.currentTarget;
+            const href = link.getAttribute('href');
+            if (!href || href === '#') return;
+
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            setActiveLink(link);
+
+            const group = link.closest('.nav-group');
+            if (group && link.classList.contains('nav-group-toggle')) {
+                expandNavGroup(group);
+            } else if (group) {
+                group.classList.add('expanded');
+            }
+        }
+
+        function setActiveLink(activeLink) {
+            document.querySelectorAll('.sidebar a').forEach(function(a) {
+                a.classList.remove('active');
+            });
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+
+        function expandNavGroup(group) {
+            document.querySelectorAll('.sidebar .nav-group').forEach(function(g) {
+                if (g !== group) {
+                    g.classList.remove('expanded');
+                }
+            });
+            group.classList.add('expanded');
+        }
+
+        function initScrollSpy() {
+            const navLinks = Array.from(document.querySelectorAll('.sidebar a[href^="#"]'));
+            const sections = navLinks
+                .map(function(link) {
+                    const id = link.getAttribute('href').slice(1);
+                    const el = document.getElementById(id);
+                    return el ? { id: id, el: el, link: link } : null;
+                })
+                .filter(Boolean);
+
+            if (!sections.length) return;
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        const match = sections.find(function(s) { return s.el === entry.target; });
+                        if (match) {
+                            setActiveLink(match.link);
+                            const group = match.link.closest('.nav-group');
+                            if (group) {
+                                group.classList.add('expanded');
+                            }
+                        }
+                    }
+                });
+            }, {
+                rootMargin: '-20% 0px -60% 0px',
+                threshold: 0
+            });
+
+            sections.forEach(function(s) { observer.observe(s.el); });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initScrollSpy();
+
+            document.querySelectorAll('.sidebar .nav-group-toggle').forEach(function(toggle) {
+                toggle.addEventListener('dblclick', function(event) {
+                    event.preventDefault();
+                    const group = toggle.closest('.nav-group');
+                    if (group) {
+                        group.classList.toggle('expanded');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
