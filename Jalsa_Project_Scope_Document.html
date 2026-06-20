@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jalsa – Project Scope Document</title>
+    <style>
+        :root { --primary: #185FA5; --secondary: #0F6E56; --bg: #f5f7fa; --text: #2d3748; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; line-height: 1.65; color: var(--text); background: var(--bg); }
+        .sidebar { position: fixed; left: 0; top: 0; width: 280px; height: 100vh; overflow-y: auto; background: #fff; border-right: 2px solid var(--primary); padding: 20px 0; z-index: 100; }
+        .sidebar h3 { padding: 0 20px 12px; color: var(--primary); border-bottom: 2px solid var(--primary); margin-bottom: 12px; font-size: 1em; }
+        .sidebar a { display: block; padding: 8px 20px; color: var(--primary); text-decoration: none; font-size: 0.88em; border-left: 3px solid transparent; }
+        .sidebar a:hover { background: #e6f1fb; border-left-color: var(--secondary); }
+        .main { margin-left: 280px; background: #fff; min-height: 100vh; }
+        header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; padding: 48px 56px; }
+        header h1 { font-size: 2.4em; margin-bottom: 8px; }
+        header p { opacity: 0.92; font-size: 1.05em; }
+        .meta-bar { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 20px; font-size: 0.9em; }
+        .meta-bar span { background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 20px; }
+        section { padding: 40px 56px; border-bottom: 1px solid var(--border); scroll-margin-top: 20px; }
+        h2 { color: var(--primary); font-size: 1.75em; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid var(--primary); }
+        h3 { color: var(--secondary); font-size: 1.25em; margin: 24px 0 12px; }
+        h4 { color: var(--primary); margin: 16px 0 8px; }
+        p { margin-bottom: 12px; }
+        ul, ol { margin: 0 0 16px 24px; }
+        li { margin-bottom: 6px; }
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92em; }
+        th { background: #f0f7ff; color: var(--primary); padding: 12px; text-align: left; border: 1px solid var(--border); font-weight: 600; }
+        td { padding: 10px 12px; border: 1px solid var(--border); vertical-align: top; }
+        tr:nth-child(even) td { background: #fafbfc; }
+        .module-box { background: #f9fafb; border-left: 4px solid var(--primary); padding: 20px; margin: 16px 0; border-radius: 4px; }
+        .alert { padding: 16px 20px; border-radius: 6px; margin: 16px 0; }
+        .alert-warning { background: #fff8e1; border-left: 4px solid #ff9800; }
+        .alert-info { background: #e3f2fd; border-left: 4px solid var(--primary); }
+        .alert-success { background: #e8f5e9; border-left: 4px solid var(--secondary); }
+        .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+        .tag-critical { background: #fde8e8; color: #c53030; }
+        .tag-high { background: #fef3cd; color: #856404; }
+        .tag-medium { background: #dbeafe; color: #1e40af; }
+        .tag-low { background: #d1fae5; color: #065f46; }
+        footer { padding: 32px 56px; background: #f9fafb; text-align: center; color: #718096; font-size: 0.9em; }
+        @media print { .sidebar { display: none; } .main { margin-left: 0; } section { page-break-inside: avoid; } }
+        @media (max-width: 900px) { .sidebar { position: relative; width: 100%; height: auto; } .main { margin-left: 0; } section, header { padding: 24px; } }
+    </style>
+</head>
+<body>
+<nav class="sidebar">
+    <h3>📑 Scope Document</h3>
+    <a href="#s1">1. Project Information</a>
+    <a href="#s2">2. Project Vision</a>
+    <a href="#s3">3. Project Objectives</a>
+    <a href="#s4">4. Stakeholders</a>
+    <a href="#s5">5. System Actors</a>
+    <a href="#s6">6. Project Scope (In Scope)</a>
+    <a href="#s7">7. Out of Scope</a>
+    <a href="#s8">8. Deliverables</a>
+    <a href="#s9">9. Functional Scope</a>
+    <a href="#s10">10. Non-Functional Scope</a>
+    <a href="#s11">11. Assumptions</a>
+    <a href="#s12">12. Constraints</a>
+    <a href="#s13">13. Dependencies</a>
+    <a href="#s14">14. Risks</a>
+    <a href="#s15">15. Technology Scope</a>
+    <a href="#s16">16. AI Scope</a>
+    <a href="#s17">17. Module Breakdown</a>
+    <a href="#s18">18. Acceptance Criteria</a>
+    <a href="#s19">19. Scope Summary</a>
+    <a href="#s20">20. Complete Task List</a>
+    <a href="#gaps">Document Gaps & Conflicts</a>
+</nav>
+
+<div class="main">
+<header>
+    <h1>Jalsa (جلسة)</h1>
+    <p>Project Scope Document — AI-Powered Mental Health Clinic Management System</p>
+    <div class="meta-bar">
+        <span>Document Version: 1.0</span>
+        <span>Date: June 20, 2026</span>
+        <span>ITI Capstone 2026</span>
+        <span>Status: Approved for Planning</span>
+    </div>
+</header>
+
+<!-- SECTION 1 -->
+<section id="s1">
+<h2>1. Project Information</h2>
+<table>
+    <tr><th style="width:28%">Attribute</th><th>Description</th></tr>
+    <tr><td><strong>Project Name</strong></td><td><strong>Jalsa (جلسة)</strong> — AI-Powered Mental Health Clinic Management System</td></tr>
+    <tr><td><strong>Project Type</strong></td><td>Graduation Capstone Project (ITI 2026) — Full-stack web application with integrated AI services</td></tr>
+    <tr><td><strong>Industry Domain</strong></td><td>Healthcare — Mental Health / Clinical Psychology — Arabic-language clinic operations</td></tr>
+    <tr><td><strong>Project Summary</strong></td><td>Jalsa is a web-based clinic management platform that digitizes patient intake, session documentation, therapeutic exercise assignment, progress analytics, AI-assisted referral report generation, and patient support chat with crisis detection. The system serves therapists and patients through role-based access, backed by Azure OpenAI services and a RAG pipeline for contextual clinical decision support.</td></tr>
+    <tr><td><strong>Business Problem</strong></td><td>Arabic mental health clinics rely heavily on manual paperwork, unstructured session notes, and time-consuming referral report preparation. Therapists lack consolidated visibility into patient progress across assessments, sessions, and exercises. Patients have limited between-session support channels, and crisis signals in digital communications may go undetected. Data fragmentation reduces care continuity and increases administrative burden.</td></tr>
+    <tr><td><strong>Proposed Solution</strong></td><td>A unified clinic management system with: (1) digital intake and OCR-based form extraction, (2) session notes with voice-to-text transcription and AI summarization, (3) exercise assignment and patient self-tracking, (4) real-time AI support chat with crisis escalation, (5) RAG-powered referral report generation with therapist review workflow, and (6) analytics dashboards for clinical progress monitoring — all delivered as a responsive web application deployable on Azure.</td></tr>
+</table>
+</section>
+
+<!-- SECTION 2 -->
+<section id="s2">
+<h2>2. Project Vision</h2>
+<h3>Vision Statement</h3>
+<p>To become the leading Arabic-language, AI-augmented mental health clinic platform that empowers therapists with intelligent clinical tools while giving patients safe, continuous support between sessions.</p>
+<h3>Mission Statement</h3>
+<p>Deliver a secure, user-centered clinic management system that reduces administrative overhead, improves documentation quality, and enhances patient safety through responsible AI integration — built by a balanced full-stack team as an ITI Capstone demonstration of real-world software engineering practice.</p>
+<h3>Expected Impact</h3>
+<ul>
+    <li>Reduce therapist time spent on referral report drafting by automating draft generation with human-in-the-loop approval</li>
+    <li>Improve intake efficiency through OCR and digital form completion</li>
+    <li>Enable data-driven treatment monitoring via assessment trends and exercise analytics</li>
+    <li>Increase patient engagement through assigned exercises and AI-supported chat</li>
+    <li>Enhance patient safety via automated crisis keyword detection and therapist alerting</li>
+</ul>
+<h3>Long-Term Goals</h3>
+<ul>
+    <li>Extend platform to multi-clinic operations and native mobile applications</li>
+    <li>Integrate with hospital EMR systems and wearable health devices</li>
+    <li>Support additional Arabic dialects and standardized psychological assessment instruments</li>
+    <li>Advance AI models with clinic-specific fine-tuning and expanded RAG knowledge bases</li>
+</ul>
+</section>
+
+<!-- SECTION 3 -->
+<section id="s3">
+<h2>3. Project Objectives</h2>
+<table>
+    <thead><tr><th>ID</th><th>Objective</th><th>Success Metric</th><th>Target</th></tr></thead>
+    <tbody>
+        <tr><td>OBJ-01</td><td>Implement complete authentication for therapists and patients</td><td>Login, registration, password reset functional</td><td>100% auth use cases by Sprint 1 end</td></tr>
+        <tr><td>OBJ-02</td><td>Deliver full patient lifecycle management</td><td>CRUD, search, archive, intake operational</td><td>8 patient use cases complete</td></tr>
+        <tr><td>OBJ-03</td><td>Enable session documentation with voice and AI summary</td><td>Voice STT + session summary working</td><td>6 session use cases complete</td></tr>
+        <tr><td>OBJ-04</td><td>Implement exercise assignment and patient tracking</td><td>Assign, track, status updates, reminders</td><td>10 exercise use cases complete</td></tr>
+        <tr><td>OBJ-05</td><td>Deploy AI referral report pipeline with therapist approval</td><td>Generate, review, approve/reject, PDF export</td><td>7 report use cases complete</td></tr>
+        <tr><td>OBJ-06</td><td>Provide real-time patient support chat with crisis detection</td><td>Chat, AI responses, crisis alerts to therapist</td><td>7 chat use cases complete</td></tr>
+        <tr><td>OBJ-07</td><td>Deliver progress analytics dashboards</td><td>Assessment trends, exercise analytics, session stats</td><td>4 analytics use cases complete</td></tr>
+        <tr><td>OBJ-08</td><td>Achieve 100% use case coverage</td><td>All 52 use cases implemented and tested</td><td>End of Sprint 4 / Week 8</td></tr>
+        <tr><td>OBJ-09</td><td>Meet performance and security benchmarks</td><td>API &lt; 200ms; security audit passed</td><td>Before production deployment</td></tr>
+        <tr><td>OBJ-10</td><td>Deploy production-ready MVP on Azure</td><td>Smoke tests pass on Azure App Service</td><td>Project completion milestone</td></tr>
+    </tbody>
+</table>
+</section>
+
+<!-- SECTION 4 -->
+<section id="s4">
+<h2>4. Stakeholders</h2>
+<table>
+    <thead><tr><th>Stakeholder</th><th>Role</th><th>Interests</th><th>Responsibilities</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Patients</strong></td><td>End User (Secondary Actor)</td><td>Easy access to exercises, support chat, intake forms, and personal health data</td><td>Complete intake forms, track exercises, engage in support chat, login securely</td></tr>
+        <tr><td><strong>Therapists</strong></td><td>Primary End User</td><td>Efficient patient management, quality documentation, AI-assisted reports, crisis awareness</td><td>Manage patients, record sessions, assign exercises, review/approve AI reports, monitor chat alerts</td></tr>
+        <tr><td><strong>Administrators</strong></td><td>System Operator</td><td>System health, usage analytics, AI cost monitoring, user oversight</td><td>Access admin dashboard, view system analytics, monitor AI usage (limited scope in MVP)</td></tr>
+        <tr><td><strong>AI Services</strong></td><td>External System Actor</td><td>Reliable API consumption, prompt compliance, data privacy</td><td>Provide OCR, STT, LLM generation, embeddings, and crisis NLP processing via Azure OpenAI</td></tr>
+        <tr><td><strong>Development Team</strong></td><td>Implementers (5 members)</td><td>Balanced workload, clear ownership, on-time delivery, learning outcomes</td><td>Design, develop, test, document, and deploy all in-scope features per sprint plan</td></tr>
+        <tr><td><strong>Project Supervisor</strong></td><td>Academic Evaluator</td><td>Academic rigor, documentation quality, demonstration readiness</td><td>Review progress, provide guidance, evaluate capstone deliverables and defense presentation</td></tr>
+    </tbody>
+</table>
+</section>
+
+<!-- SECTION 5 -->
+<section id="s5">
+<h2>5. System Actors</h2>
+<p>Derived from the UML Use Case Diagram (v1.0) embedded in project artifacts. The diagram defines <strong>52 use cases</strong> across 8 business domains.</p>
+<table>
+    <thead><tr><th>Actor</th><th>Type</th><th>Description &amp; Role in System</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Therapist</strong></td><td>Primary Human Actor</td><td>Licensed mental health professional who registers/logs in, creates and manages patient profiles, records session notes and voice memos, assigns exercises, generates and approves AI referral reports, views analytics dashboards, and receives crisis alerts from patient chat.</td></tr>
+        <tr><td><strong>Patient</strong></td><td>Secondary Human Actor</td><td>Individual receiving care who logs in, completes digital intake forms, uploads form images, views assigned exercises, updates exercise status, submits reflection notes, and participates in AI-supported chat.</td></tr>
+        <tr><td><strong>AI Services</strong></td><td>System / External Actor</td><td>Collective AI capabilities including GPT-4o (generation, vision OCR, chat), Whisper (speech-to-text), embedding models, RAG retrieval, crisis keyword NLP, and report summarization — invoked by backend services on behalf of users.</td></tr>
+        <tr><td><strong>Notification Service</strong></td><td>External System Actor</td><td>Delivers email notifications (password reset, exercise reminders) and in-app/real-time alerts (crisis escalation to therapists).</td></tr>
+        <tr><td><strong>Email Service</strong></td><td>External System Actor</td><td>Third-party email delivery (SendGrid or equivalent) for authentication and notification workflows.</td></tr>
+    </tbody>
+</table>
+<div class="alert alert-warning"><strong>Note:</strong> A dedicated <em>Administrator</em> actor is referenced in the Admin Dashboard module but is not explicitly enumerated among the 52 use cases. Admin capabilities in MVP are limited to system analytics and AI usage monitoring rather than full user/clinic administration.</div>
+</section>
+
+<!-- SECTION 6 -->
+<section id="s6">
+<h2>6. Project Scope (In Scope)</h2>
+<p>All features below are traceable to the 52 use cases defined in the UML Use Case Diagram and organized into the modules requested for this scope document.</p>
+
+<div class="module-box">
+<h4>6.1 Authentication &amp; Authorization</h4>
+<p><strong>Description:</strong> Secure identity management for therapists and patients with role-based access control.</p>
+<p><strong>Main Features:</strong> Register Therapist Account; Login/Logout (Therapist &amp; Patient); Reset Password; Manage Profile; JWT token management; password hashing.</p>
+<p><strong>Related Actors:</strong> Therapist, Patient</p>
+<p><strong>Related Use Cases:</strong> UC-A01 through UC-A07 (7 use cases)</p>
+<p><strong>Expected Outputs:</strong> Authenticated sessions, secure API access tokens, password reset emails, updated user profiles.</p>
+</div>
+
+<div class="module-box">
+<h4>6.2 Patient Management</h4>
+<p><strong>Description:</strong> Full lifecycle management of patient records including intake and archival.</p>
+<p><strong>Main Features:</strong> Create/Update/View Patient Profile; Search Patients; Archive Patient; Digital Intake Form; Upload Intake Form Image (OCR).</p>
+<p><strong>Related Actors:</strong> Therapist, Patient, AI Services</p>
+<p><strong>Related Use Cases:</strong> UC-P01 through UC-P08 (8 use cases)</p>
+<p><strong>Expected Outputs:</strong> Structured patient records, searchable patient lists, archived patient status, completed intake data.</p>
+</div>
+
+<div class="module-box">
+<h4>6.3 Therapist Management</h4>
+<p><strong>Description:</strong> Therapist account and profile management within the authentication domain (no separate multi-therapist admin module in MVP).</p>
+<p><strong>Main Features:</strong> Therapist registration; therapist login/logout; profile management; therapist-facing dashboards and chat monitoring.</p>
+<p><strong>Related Actors:</strong> Therapist</p>
+<p><strong>Related Use Cases:</strong> Register Therapist Account, Login (Therapist), Logout, Manage Profile, View Chat Engagement Summary, Receive Crisis Alerts</p>
+<p><strong>Expected Outputs:</strong> Registered therapist accounts, authenticated therapist sessions, profile updates, crisis notification delivery.</p>
+</div>
+
+<div class="module-box">
+<h4>6.4 Assessment Management</h4>
+<p><strong>Description:</strong> Recording and tracking psychological assessments linked to patient profiles.</p>
+<p><strong>Main Features:</strong> Record Psychological Assessments; Assessment Auto-Fill (AI-assisted from OCR); View Assessment Trends; assessment data storage and retrieval.</p>
+<p><strong>Related Actors:</strong> Therapist, Patient, AI Services</p>
+<p><strong>Related Use Cases:</strong> Record Psychological Assessments, View Assessment Trends, Assessment Auto-Fill (implementation task)</p>
+<p><strong>Expected Outputs:</strong> Assessment records in database, trend charts on progress dashboard, auto-populated assessment fields from intake OCR.</p>
+</div>
+
+<div class="module-box">
+<h4>6.5 Session Management</h4>
+<p><strong>Description:</strong> Clinical session documentation including notes, voice memos, search, and AI summaries.</p>
+<p><strong>Main Features:</strong> Create/Edit Session Note; View Session History; Search Session Notes; Record Voice Memo; View AI Session Summary.</p>
+<p><strong>Related Actors:</strong> Therapist, AI Services</p>
+<p><strong>Related Use Cases:</strong> UC-S01 through UC-S06 (6 use cases)</p>
+<p><strong>Expected Outputs:</strong> Session note records, voice transcripts, searchable session history, AI-generated session summaries.</p>
+</div>
+
+<div class="module-box">
+<h4>6.6 Exercise &amp; Treatment Management</h4>
+<p><strong>Description:</strong> Therapeutic exercise assignment, tracking, and completion monitoring.</p>
+<p><strong>Main Features:</strong> Assign/Update/Deactivate Exercise; Extend Due Date; Monitor Completion; View Assigned Exercises; Mark Completed/Partially Done/Skipped; Submit Reflection Notes; Exercise Recommendation Assistant (AI).</p>
+<p><strong>Related Actors:</strong> Therapist, Patient, Notification Service</p>
+<p><strong>Related Use Cases:</strong> UC-E01 through UC-E10 (10 use cases)</p>
+<p><strong>Expected Outputs:</strong> Exercise assignments, status updates, completion analytics, exercise reminder notifications, patient reflection notes.</p>
+</div>
+
+<div class="module-box">
+<h4>6.7 Notification Management</h4>
+<p><strong>Description:</strong> System notifications for authentication, exercises, and crisis escalation.</p>
+<p><strong>Main Features:</strong> Password reset emails; exercise reminder notifications; crisis alert escalation to therapist; real-time alert delivery via WebSocket/SignalR.</p>
+<p><strong>Related Actors:</strong> Therapist, Patient, Notification Service, Email Service, AI Services</p>
+<p><strong>Related Use Cases:</strong> Reset Password, Receive Crisis Alerts, Crisis Alert (Patient), Escalate Crisis Alert, Exercise reminder setup</p>
+<p><strong>Expected Outputs:</strong> Delivered emails, in-app notifications, therapist crisis alerts, exercise due-date reminders.</p>
+</div>
+
+<div class="module-box">
+<h4>6.8 AI Services</h4>
+<p><strong>Description:</strong> Core AI infrastructure supporting all intelligent features across the platform.</p>
+<p><strong>Main Features:</strong> OCR intake extraction; Voice STT (Whisper); Embeddings &amp; RAG; Context retrieval; Patient history summarization; Report draft generation; Support chatbot responses; Conversation memory; Crisis keyword NLP detection.</p>
+<p><strong>Related Actors:</strong> AI Services, Therapist, Patient</p>
+<p><strong>Related Use Cases:</strong> UC-AI01 through UC-AI10 (10 use cases)</p>
+<p><strong>Expected Outputs:</strong> Structured OCR data, transcripts, vector embeddings, RAG context, AI text outputs, crisis detection flags.</p>
+</div>
+
+<div class="module-box">
+<h4>6.9 Reporting &amp; Analytics</h4>
+<p><strong>Description:</strong> Clinical reporting, progress dashboards, and data visualization.</p>
+<p><strong>Main Features:</strong> Generate/Review/Edit/Approve/Reject Referral Report; Export PDF; View Previous Reports; Patient Progress Dashboard; Assessment Trends; Exercise Analytics; Session Statistics; Chat Engagement Summary; Admin/System Analytics.</p>
+<p><strong>Related Actors:</strong> Therapist, Administrator (limited)</p>
+<p><strong>Related Use Cases:</strong> UC-R01–UC-R07 (reports) + UC-AN01–UC-AN04 (analytics) = 11 use cases</p>
+<p><strong>Expected Outputs:</strong> AI-generated referral reports, approved PDF exports, interactive charts and dashboards, engagement summaries.</p>
+</div>
+
+<div class="module-box">
+<h4>6.10 Administration</h4>
+<p><strong>Description:</strong> Limited administrative capabilities for system monitoring in MVP scope.</p>
+<p><strong>Main Features:</strong> Admin dashboard design; system analytics; AI usage and cost tracking dashboard; audit logging for AI-generated content.</p>
+<p><strong>Related Actors:</strong> Administrator, Development Team</p>
+<p><strong>Related Use Cases:</strong> Admin Dashboard (Week 4 deliverable); AI Usage Analytics; Audit Logging</p>
+<p><strong>Expected Outputs:</strong> Admin UI with system metrics, token usage reports, AI audit logs.</p>
+</div>
+
+<div class="module-box">
+<h4>6.11 Chat &amp; Support Services (Cross-Cutting)</h4>
+<p><strong>Description:</strong> Real-time patient support chat with AI responses and crisis handling.</p>
+<p><strong>Main Features:</strong> Start Support Chat; Send Message; Receive AI Response; View Chat History; Crisis detection and alerting.</p>
+<p><strong>Related Actors:</strong> Patient, Therapist, AI Services</p>
+<p><strong>Related Use Cases:</strong> UC-C01 through UC-C07 (7 use cases)</p>
+<p><strong>Expected Outputs:</strong> Real-time chat messages, AI-generated support responses, stored chat history, crisis alerts.</p>
+</div>
+</section>
+
+<!-- SECTION 7 -->
+<section id="s7">
+<h2>7. Out of Scope</h2>
+<p>The following features are explicitly excluded from the current MVP version based on project roadmap boundaries and academic scope constraints:</p>
+<table>
+    <thead><tr><th>Excluded Feature</th><th>Rationale</th></tr></thead>
+    <tbody>
+        <tr><td>Native Mobile Applications (iOS/Android)</td><td>MVP delivers responsive web only; mobile apps deferred to post-MVP</td></tr>
+        <tr><td>Payment Gateways &amp; Billing</td><td>No financial transactions in clinic management MVP</td></tr>
+        <tr><td>Video Conferencing / Telehealth Sessions</td><td>Session documentation only; no live video integration</td></tr>
+        <tr><td>Multi-Tenant SaaS Support</td><td>Single-clinic deployment model for capstone scope</td></tr>
+        <tr><td>External Hospital / EMR Integrations</td><td>Standalone system without HL7/FHIR integration</td></tr>
+        <tr><td>Wearable Device Integration</td><td>No IoT or health tracker data ingestion</td></tr>
+        <tr><td>Full Administrator User Management</td><td>No CRUD for therapists/clinics by admin role in MVP</td></tr>
+        <tr><td>Multi-language Support Beyond Arabic/English UI</td><td>Primary focus on Arabic mental health clinic context</td></tr>
+        <tr><td>Offline Mode / PWA</td><td>Requires active internet connection</td></tr>
+        <tr><td>AI Model Fine-Tuning</td><td>Uses pre-trained Azure OpenAI models with prompt engineering only</td></tr>
+        <tr><td>Dark Mode (Optional)</td><td>Marked optional in Sprint 4; not required for acceptance</td></tr>
+    </tbody>
+</table>
+</section>
+
+<!-- SECTION 8 -->
+<section id="s8">
+<h2>8. Deliverables</h2>
+<table>
+    <thead><tr><th>#</th><th>Deliverable</th><th>Description</th><th>Owner</th><th>Target</th></tr></thead>
+    <tbody>
+        <tr><td>D-01</td><td>Source Code</td><td>Complete Angular frontend, ASP.NET Core backend, AI service layer, Git repository with branching strategy</td><td>All Team</td><td>Sprint 4</td></tr>
+        <tr><td>D-02</td><td>Database</td><td>SQL schema, migrations, pgvector embeddings storage, seed data, backup scripts</td><td>Salma, Yara</td><td>Sprint 1–4</td></tr>
+        <tr><td>D-03</td><td>API Documentation</td><td>Swagger/OpenAPI specs, endpoint reference, authentication guide</td><td>Iman, Salma</td><td>Sprint 4</td></tr>
+        <tr><td>D-04</td><td>UI/UX Design</td><td>Design system, component library, responsive layouts, AI UX patterns</td><td>Mustafa</td><td>Sprint 1–3</td></tr>
+        <tr><td>D-05</td><td>Deployment Package</td><td>Azure App Service config, CI/CD pipeline, environment variables, runbooks</td><td>Salma</td><td>Sprint 4</td></tr>
+        <tr><td>D-06</td><td>Project Documentation</td><td>SRS, Scope Document, ERD, Use Case Diagram, Architecture docs, AI integration guide</td><td>All Team</td><td>Sprint 4</td></tr>
+        <tr><td>D-07</td><td>Presentation Materials</td><td>Capstone defense slides, demo script, talking points</td><td>Iman, All</td><td>Project End</td></tr>
+        <tr><td>D-08</td><td>Test Artifacts</td><td>UAT plan, integration test results, security audit report</td><td>All Team</td><td>Sprint 4</td></tr>
+        <tr><td>D-09</td><td>Working MVP</td><td>Production-deployed system with all 52 use cases functional</td><td>All Team</td><td>Week 8 / Sprint 4</td></tr>
+    </tbody>
+</table>
+</section>
+
+<!-- SECTION 9 -->
+<section id="s9">
+<h2>9. Functional Scope</h2>
+<p>Complete functional requirements grouped by module, derived from the 52 use cases.</p>
+
+<h3>9.1 Authentication &amp; Authorization (7)</h3>
+<ol><li>FR-A01: System shall allow therapist self-registration with email validation.</li><li>FR-A02: System shall authenticate therapists via JWT tokens.</li><li>FR-A03: System shall authenticate patients via JWT tokens.</li><li>FR-A04: System shall support secure logout and token invalidation.</li><li>FR-A05: System shall send password reset emails via email service.</li><li>FR-A06: System shall hash passwords using industry-standard algorithms.</li><li>FR-A07: Users shall manage their profile information (name, contact, credentials).</li></ol>
+
+<h3>9.2 Patient Management (8)</h3>
+<ol><li>FR-P01: Therapists shall create patient profiles with demographic and clinical metadata.</li><li>FR-P02: Therapists shall update existing patient profiles.</li><li>FR-P03: Therapists shall view individual patient profiles.</li><li>FR-P04: Therapists shall search and filter patients.</li><li>FR-P05: Therapists shall archive inactive patients.</li><li>FR-P06: Patients shall complete digital intake forms online.</li><li>FR-P07: Patients shall upload scanned intake form images for OCR processing.</li><li>FR-P08: Therapists shall record psychological assessment scores linked to patients.</li></ol>
+
+<h3>9.3 Session Management (6)</h3>
+<ol><li>FR-S01: Therapists shall create session notes linked to patients.</li><li>FR-S02: Therapists shall edit existing session notes.</li><li>FR-S03: Therapists shall view chronological session history.</li><li>FR-S04: Therapists shall search session notes by keywords/filters.</li><li>FR-S05: Therapists shall record voice memos attached to sessions.</li><li>FR-S06: Therapists shall view AI-generated session summaries.</li></ol>
+
+<h3>9.4 Exercise &amp; Treatment Management (10)</h3>
+<ol><li>FR-E01: Therapists shall assign exercises to patients with due dates.</li><li>FR-E02: Therapists shall update exercise details.</li><li>FR-E03: Therapists shall extend exercise due dates.</li><li>FR-E04: Therapists shall deactivate exercises.</li><li>FR-E05: Therapists shall monitor exercise completion rates.</li><li>FR-E06: Patients shall view assigned exercises.</li><li>FR-E07: Patients shall mark exercises as completed.</li><li>FR-E08: Patients shall mark exercises as partially done.</li><li>FR-E09: Patients shall mark exercises as skipped.</li><li>FR-E10: Patients shall submit reflection notes on exercises.</li></ol>
+
+<h3>9.5 Progress Monitoring &amp; Analytics (4)</h3>
+<ol><li>FR-AN01: Therapists shall view a consolidated patient progress dashboard.</li><li>FR-AN02: System shall display assessment score trends over time.</li><li>FR-AN03: System shall display exercise completion analytics.</li><li>FR-AN04: System shall display session statistics and frequency metrics.</li></ol>
+
+<h3>9.6 Chat &amp; Support Services (7)</h3>
+<ol><li>FR-C01: Therapists shall view chat engagement summaries per patient.</li><li>FR-C02: Therapists shall receive crisis alerts from patient chat.</li><li>FR-C03: Patients shall initiate support chat sessions.</li><li>FR-C04: Patients shall send messages in real-time chat.</li><li>FR-C05: Patients shall receive AI-generated support responses.</li><li>FR-C06: Users shall view chat conversation history.</li><li>FR-C07: System shall trigger crisis alerts visible to patients when detected.</li></ol>
+
+<h3>9.7 AI Referral Reports (7)</h3>
+<ol><li>FR-R01: System shall generate AI referral report drafts from patient data.</li><li>FR-R02: Therapists shall review AI-generated reports.</li><li>FR-R03: Therapists shall edit report content before approval.</li><li>FR-R04: Therapists shall approve finalized reports.</li><li>FR-R05: Therapists shall reject reports for regeneration.</li><li>FR-R06: System shall export approved reports as PDF.</li><li>FR-R07: Therapists shall view previously generated reports.</li></ol>
+
+<h3>9.8 AI Services Infrastructure (10)</h3>
+<ol><li>FR-AI01: System shall extract intake form data via Vision OCR.</li><li>FR-AI02: System shall convert voice memos to text via Whisper STT.</li><li>FR-AI03: System shall generate text embeddings for RAG.</li><li>FR-AI04: System shall retrieve relevant session context via vector search.</li><li>FR-AI05: System shall summarize patient clinical history.</li><li>FR-AI06: System shall generate referral report drafts via GPT-4o.</li><li>FR-AI07: System shall generate support chat responses via GPT-4o.</li><li>FR-AI08: System shall maintain conversation memory across chat sessions.</li><li>FR-AI09: System shall detect crisis keywords in chat messages.</li><li>FR-AI10: System shall escalate detected crises to therapists via notifications.</li></ol>
+</section>
+
+<!-- SECTION 10 -->
+<section id="s10">
+<h2>10. Non-Functional Scope</h2>
+<table>
+    <thead><tr><th>Category</th><th>Requirement</th><th>Target / Standard</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Security</strong></td><td>JWT authentication; RBAC on all endpoints; password hashing; encryption at rest and in transit; OWASP compliance; API rate limiting; DDoS protection; PII protection for mental health data; audit logging for AI outputs</td><td>Security audit passed before deployment</td></tr>
+        <tr><td><strong>Performance</strong></td><td>REST API response time; frontend bundle optimization; efficient DB queries with indexing; AI service latency acceptable for UX; RAG query caching</td><td>API responses &lt; 200ms (non-AI endpoints); load testing in Week 3</td></tr>
+        <tr><td><strong>Scalability</strong></td><td>Azure cloud deployment; Redis caching; background job queue (Hangfire); vector search optimization; horizontal scaling readiness via App Service</td><td>Support concurrent therapist and patient sessions for demo clinic</td></tr>
+        <tr><td><strong>Reliability</strong></td><td>Database backup and recovery; AI API retry logic; fallback to direct OpenAI if Azure limits hit; error handling on all AI calls; graceful degradation when AI unavailable</td><td>Backup/recovery tested; zero critical data loss</td></tr>
+        <tr><td><strong>Availability</strong></td><td>Azure App Service hosting; production monitoring and alerting; smoke tests post-deployment</td><td>Target 99% uptime during evaluation period</td></tr>
+        <tr><td><strong>Maintainability</strong></td><td>Modular domain-driven architecture; Swagger API docs; Git feature-branch strategy; code review by team lead; prompt versioning system</td><td>All modules documented; clear ownership matrix</td></tr>
+        <tr><td><strong>Usability</strong></td><td>Responsive web design; Arabic clinic context UX; AI loading/streaming indicators; confidence score indicators on AI outputs; WCAG accessibility compliance; cross-browser compatibility</td><td>Tested on major browsers and mobile viewports</td></tr>
+    </tbody>
+</table>
+</section>
+
+<!-- SECTION 11 -->
+<section id="s11">
+<h2>11. Assumptions</h2>
+<ol>
+    <li>Azure OpenAI service (GPT-4o, Whisper, Vision) will be provisioned and accessible throughout development.</li>
+    <li>Team has access to Azure cloud resources for deployment (App Service, SQL, Redis).</li>
+    <li>A single mental health clinic operates the system (no multi-tenant requirements in MVP).</li>
+    <li>Therapists are responsible for validating all AI-generated clinical content before use.</li>
+    <li>Patients have internet access and modern web browsers supporting audio recording APIs.</li>
+    <li>Email delivery service (SendGrid or equivalent) is available for password reset workflows.</li>
+    <li>Project supervisor availability for periodic reviews during the 4–8 week development period.</li>
+    <li>UML Use Case Diagram v1.0 represents the authoritative functional baseline (52 use cases).</li>
+    <li>Arabic-language content and clinic workflows are primary; English may be used in technical documentation.</li>
+    <li>AI crisis detection supplements but does not replace professional clinical judgment.</li>
+    <li>Team of 5 developers remains intact for the full project duration.</li>
+    <li>Academic evaluation focuses on MVP completeness rather than commercial-scale performance.</li>
+</ol>
+</section>
+
+<!-- SECTION 12 -->
+<section id="s12">
+<h2>12. Constraints</h2>
+<table>
+    <thead><tr><th>Constraint Type</th><th>Description</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Time Constraints</strong></td><td>4-week intensive sprint (detailed roadmap) or 8-week sprint plan (4 sprints × 2 weeks) per roadmap documents — project must complete before ITI Capstone 2026 defense deadline.</td></tr>
+        <tr><td><strong>Team Constraints</strong></td><td>Fixed team of 5 members with defined domain ownership; no additional developers; AI expertise concentrated in team lead with distributed AI tasks.</td></tr>
+        <tr><td><strong>Technology Constraints</strong></td><td>Must use Angular 21 frontend, ASP.NET Core / .NET 10 backend, SQL database, Azure OpenAI; SignalR for real-time; Redis for caching; pgvector for embeddings.</td></tr>
+        <tr><td><strong>Budget Constraints</strong></td><td>Academic/student budget limits Azure OpenAI token usage; token tracking and cost monitoring required; quota increase requests needed early.</td></tr>
+        <tr><td><strong>Academic Constraints</strong></td><td>Must produce graduation documentation (SRS, diagrams, scope, presentation); scope frozen after Day 10 / Week 2 to prevent creep; evaluation against use case completeness.</td></tr>
+        <tr><td><strong>Regulatory Constraints</strong></td><td>Patient mental health data requires encryption and access controls; AI outputs require human review; no automated clinical diagnosis claims.</td></tr>
+    </tbody>
+</table>
+</section>
+
+<!-- SECTION 13 -->
+<section id="s13">
+<h2>13. Dependencies</h2>
+<h3>13.1 Internal Dependencies</h3>
+<table>
+    <thead><tr><th>Feature</th><th>Depends On</th><th>Enables</th></tr></thead>
+    <tbody>
+        <tr><td>Authentication</td><td>Database, Email Service</td><td>All features (blocking)</td></tr>
+        <tr><td>Patient Management</td><td>Authentication</td><td>Intake, Assessments, Sessions, Analytics</td></tr>
+        <tr><td>Session Management</td><td>Patient Management</td><td>Reports, Analytics, Voice processing</td></tr>
+        <tr><td>Exercise Management</td><td>Patient Management, Notifications</td><td>Patient tracking, Analytics</td></tr>
+        <tr><td>AI OCR</td><td>Vision API, Storage</td><td>Intake form extraction</td></tr>
+        <tr><td>AI Voice STT</td><td>Whisper API, Audio recording</td><td>Session transcription</td></tr>
+        <tr><td>RAG Pipeline</td><td>Vector DB, Embeddings, Patient data</td><td>Report generation, Context retrieval</td></tr>
+        <tr><td>Report Generation</td><td>GPT-4o, RAG, Patient history</td><td>Referral reports, PDF export</td></tr>
+        <tr><td>Chat &amp; AI Responses</td><td>WebSocket/SignalR, GPT-4o</td><td>Patient support, Crisis detection</td></tr>
+        <tr><td>Crisis Detection</td><td>NLP keywords, Chat, Notifications</td><td>Therapist alerts</td></tr>
+        <tr><td>Analytics Dashboard</td><td>Sessions, Exercises, Assessments data</td><td>Progress monitoring</td></tr>
+    </tbody>
+</table>
+<h3>13.2 External Dependencies</h3>
+<ul>
+    <li><strong>Azure OpenAI:</strong> GPT-4o, Whisper, Vision APIs — subject to rate limits and quota</li>
+    <li><strong>Azure Cloud Platform:</strong> App Service, Azure SQL, Redis Cache</li>
+    <li><strong>Email Service:</strong> SendGrid or equivalent for transactional email</li>
+    <li><strong>LangChain / Python RAG Prototype:</strong> May run as auxiliary service for embeddings pipeline</li>
+    <li><strong>Third-party PDF Library:</strong> For referral report export</li>
+    <li><strong>Internet Connectivity:</strong> Required for all AI and cloud services</li>
+</ul>
+<div class="alert alert-info"><strong>Critical Path:</strong> Authentication → Patient Management → Intake Forms → OCR/AI Services → Report Generation → Report Review UI → Analytics</div>
+</section>
+
+<!-- SECTION 14 -->
+<section id="s14">
+<h2>14. Risks</h2>
+<table>
+    <thead><tr><th>Risk</th><th>Probability</th><th>Impact</th><th>Mitigation Plan</th></tr></thead>
+    <tbody>
+        <tr><td>AI Integration Complexity (RAG, LangChain, pgvector)</td><td><span class="tag tag-high">High</span></td><td><span class="tag tag-critical">Critical</span></td><td>Prototype AI modules in Week 1; use LangChain abstractions; allocate 20% buffer; team lead knowledge transfer</td></tr>
+        <tr><td>Timeline Overrun (52 use cases in 4–8 weeks)</td><td><span class="tag tag-high">High</span></td><td><span class="tag tag-critical">Critical</span></td><td>Daily standups; frozen scope after Week 2; defer non-critical features; parallel sprint workstreams</td></tr>
+        <tr><td>AI Model Quality / Hallucinations in Reports</td><td><span class="tag tag-medium">Medium</span></td><td><span class="tag tag-critical">Critical</span></td><td>Human review gates; confidence scoring; therapist approve/reject workflow; feedback loop</td></tr>
+        <tr><td>Azure OpenAI Rate Limiting</td><td><span class="tag tag-medium">Medium</span></td><td><span class="tag tag-high">High</span></td><td>Request quota increase early; token monitoring; caching; throttling; fallback API</td></tr>
+        <tr><td>Data Security / PII Breach</td><td><span class="tag tag-low">Low</span></td><td><span class="tag tag-critical">Critical</span></td><td>Encrypt PII; RBAC; OWASP checklist; penetration testing; audit logging</td></tr>
+        <tr><td>Team Dependency / Blocking</td><td><span class="tag tag-medium">Medium</span></td><td><span class="tag tag-high">High</span></td><td>Define API contracts early; mock services; daily integration tests; cross-training</td></tr>
+        <tr><td>Frontend-Backend Integration Delays</td><td><span class="tag tag-medium">Medium</span></td><td><span class="tag tag-high">High</span></td><td>API-first design; Swagger docs; parallel development after auth schema ready</td></tr>
+        <tr><td>Crisis Detection False Positives/Negatives</td><td><span class="tag tag-medium">Medium</span></td><td><span class="tag tag-critical">Critical</span></td><td>Multiple testing cycles; keyword list refinement; manual therapist oversight</td></tr>
+        <tr><td>Scope Creep</td><td><span class="tag tag-medium">Medium</span></td><td><span class="tag tag-high">High</span></td><td>Change control after Day 10; defer post-MVP features; trace all work to use cases</td></tr>
+        <tr><td>RAG Pipeline Performance Issues</td><td><span class="tag tag-medium">Medium</span></td><td><span class="tag tag-medium">Medium</span></td><td>Load testing Week 3; optimize embeddings; cache frequent queries</td></tr>
+    </tbody>
+</table>
+</section>
+
+<!-- SECTION 15 -->
+<section id="s15">
+<h2>15. Technology Scope</h2>
+<table>
+    <thead><tr><th>Layer</th><th>Technology</th><th>Purpose</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Frontend Stack</strong></td><td>Angular 21, TypeScript, RxJS, Angular Signals, Responsive CSS, Component Library / Design System</td><td>Therapist and patient web interfaces, AI UX components, dashboards, chat UI</td></tr>
+        <tr><td><strong>Backend Stack</strong></td><td>ASP.NET Core / .NET 10, REST API, SignalR Hub, Hangfire (background jobs), Dependency Injection</td><td>Business logic, API endpoints, real-time chat, async AI job processing</td></tr>
+        <tr><td><strong>Database</strong></td><td>SQL (Azure SQL / PostgreSQL with pgvector extension for embeddings)</td><td>Relational data storage, vector similarity search for RAG</td></tr>
+        <tr><td><strong>Caching</strong></td><td>Redis</td><td>Session management, AI task queues, query caching</td></tr>
+        <tr><td><strong>AI Technologies</strong></td><td>Azure OpenAI GPT-4o, Whisper STT, GPT-4o Vision OCR, LangChain, Embeddings, pgvector RAG pipeline</td><td>OCR, transcription, summarization, report generation, chatbot, crisis NLP</td></tr>
+        <tr><td><strong>Authentication</strong></td><td>JWT tokens, Role-Based Access Control (Therapist / Patient), password hashing (bcrypt/ASP.NET Identity)</td><td>Secure access control for all endpoints</td></tr>
+        <tr><td><strong>Real-Time</strong></td><td>SignalR / WebSocket</td><td>Live chat messaging and crisis alert delivery</td></tr>
+        <tr><td><strong>Email</strong></td><td>SendGrid or nodemailer equivalent</td><td>Password reset and notification emails</td></tr>
+        <tr><td><strong>Deployment</strong></td><td>Azure App Service, Azure SQL, Azure Redis, CI/CD pipeline, production monitoring</td><td>Cloud hosting and automated deployment</td></tr>
+        <tr><td><strong>Documentation</strong></td><td>Swagger/OpenAPI, Storybook (optional), Git (main/develop/feature branches)</td><td>API docs, component docs, version control</td></tr>
+    </tbody>
+</table>
+</section>
+
+<!-- SECTION 16 -->
+<section id="s16">
+<h2>16. AI Scope</h2>
+<table>
+    <thead><tr><th>Dimension</th><th>Details</th></tr></thead>
+    <tbody>
+        <tr><td><strong>AI Features (8 core)</strong></td><td>(1) OCR Intake Extraction, (2) Voice Transcription, (3) Session Summarization, (4) Patient History Summarization, (5) RAG Referral Report Generation, (6) Support Chatbot, (7) Crisis Keyword Detection, (8) Exercise Recommendation Assistant</td></tr>
+        <tr><td><strong>AI Purpose</strong></td><td>Reduce clinician administrative burden, improve documentation quality, provide between-session patient support, and enhance patient safety through automated crisis detection — always with human therapist oversight.</td></tr>
+        <tr><td><strong>AI Inputs</strong></td><td>Scanned intake form images; voice memo audio files; session notes and transcripts; patient assessment data; chat message text; patient clinical history embeddings; conversation history</td></tr>
+        <tr><td><strong>AI Outputs</strong></td><td>Structured intake form fields; text transcripts; session summaries; patient history summaries; referral report drafts; chat support responses; crisis alert flags; exercise recommendations</td></tr>
+        <tr><td><strong>Models / Techniques</strong></td><td>GPT-4o (generation, vision, chat); Whisper (STT); Text embedding models; pgvector semantic search; RAG retrieval-augmented generation; NLP keyword/sentiment crisis detection; LangChain orchestration; prompt versioning</td></tr>
+        <tr><td><strong>Expected Benefits</strong></td><td>Faster intake processing; reduced report drafting time; improved session documentation; 24/7 patient support channel; early crisis signal detection; data-driven progress insights for therapists</td></tr>
+    </tbody>
+</table>
+<h3>AI Architecture Summary</h3>
+<ul>
+    <li><strong>Therapist Workflow:</strong> Patient Context Agent (RAG) → Report Generator Agent (GPT-4o) → Therapist Review → PDF Export</li>
+    <li><strong>Patient Workflow:</strong> Support Chat Agent (GPT-4o + Crisis Detection) → SignalR Hub → Chat Interface</li>
+    <li><strong>Processing Pipelines:</strong> Voice → Whisper → Session Notes | Scanned Form → Vision → Digital Intake | Session History → Embeddings → RAG Context</li>
+</ul>
+</section>
+
+<!-- SECTION 17 -->
+<section id="s17">
+<h2>17. Module Breakdown</h2>
+<p>Hierarchy for sprint planning and task assignment:</p>
+<pre style="background:#f4f6f8;padding:20px;border-radius:8px;overflow-x:auto;font-size:0.85em;line-height:1.5;">
+Jalsa Platform
+├── M1. Foundation &amp; Architecture (Iman Wael)
+│   ├── System architecture design
+│   ├── API gateway &amp; base endpoints
+│   └── RAG pipeline architecture
+├── M2. Authentication &amp; Infrastructure (Salma)
+│   ├── JWT auth (Therapist + Patient)
+│   ├── RBAC &amp; security hardening
+│   ├── Email service integration
+│   └── CI/CD &amp; Azure deployment
+├── M3. Design System &amp; Core UI (Mustafa)
+│   ├── Component library
+│   ├── Auth UI &amp; navigation
+│   └── Responsive layouts
+├── M4. Patient Domain (Yara)
+│   ├── Patient CRUD &amp; search
+│   ├── Digital intake &amp; OCR upload
+│   ├── Assessment recording
+│   └── Patient summary AI
+├── M5. Clinical Domain (Mohammed)
+│   ├── Session notes CRUD
+│   ├── Voice recording &amp; STT
+│   ├── Exercise assignment &amp; tracking
+│   └── Session summarization AI
+├── M6. AI Core Services (Iman Wael + Salma)
+│   ├── Azure OpenAI integration layer
+│   ├── Embeddings &amp; pgvector
+│   ├── Report generation agent
+│   ├── Crisis detection NLP
+│   └── Token tracking &amp; prompt management
+├── M7. Chat &amp; Real-Time (Salma + Mohammed + Mustafa)
+│   ├── SignalR/WebSocket hub
+│   ├── Chat messaging API
+│   ├── AI chatbot responses
+│   └── Crisis alert pipeline
+├── M8. Reporting &amp; Analytics (Iman + Mustafa + Yara)
+│   ├── Referral report workflow
+│   ├── PDF export
+│   ├── Progress dashboards
+│   └── Admin analytics
+└── M9. Quality &amp; Release (All)
+    ├── Integration &amp; UAT testing
+    ├── Documentation
+    └── Production deployment
+</pre>
+</section>
+
+<!-- SECTION 18 -->
+<section id="s18">
+<h2>18. Acceptance Criteria</h2>
+<table>
+    <thead><tr><th>ID</th><th>Criterion</th><th>Verification Method</th></tr></thead>
+    <tbody>
+        <tr><td>AC-01</td><td>All 52 use cases implemented and pass functional testing</td><td>Use case traceability matrix + UAT</td></tr>
+        <tr><td>AC-02</td><td>Therapist and Patient can register, login, logout, and reset password</td><td>End-to-end auth test</td></tr>
+        <tr><td>AC-03</td><td>Patient CRUD, search, archive, and intake (digital + OCR) operational</td><td>Patient workflow demo</td></tr>
+        <tr><td>AC-04</td><td>Session notes with voice recording and Whisper transcription working</td><td>Session workflow demo</td></tr>
+        <tr><td>AC-05</td><td>Exercise assign/track/complete cycle functional for therapist and patient</td><td>Exercise workflow demo</td></tr>
+        <tr><td>AC-06</td><td>Real-time chat with AI responses and crisis alert to therapist</td><td>Chat + crisis simulation test</td></tr>
+        <tr><td>AC-07</td><td>AI referral report generated, reviewed, approved, and exported as PDF</td><td>Report pipeline demo</td></tr>
+        <tr><td>AC-08</td><td>Analytics dashboards show assessment trends, exercise analytics, session stats</td><td>Dashboard verification</td></tr>
+        <tr><td>AC-09</td><td>Security audit passed (OWASP, encryption, RBAC, rate limiting)</td><td>Security checklist review</td></tr>
+        <tr><td>AC-10</td><td>API response times &lt; 200ms for standard endpoints</td><td>Performance test results</td></tr>
+        <tr><td>AC-11</td><td>System deployed on Azure with smoke tests passing</td><td>Production deployment verification</td></tr>
+        <tr><td>AC-12</td><td>Complete project documentation and presentation ready for defense</td><td>Supervisor review</td></tr>
+    </tbody>
+</table>
+</section>
+
+<!-- SECTION 19 -->
+<section id="s19">
+<h2>19. Scope Summary</h2>
+<div class="alert alert-success">
+<p><strong>What the project will deliver:</strong> Jalsa — a production-ready, AI-augmented mental health clinic management web application covering 52 business use cases across authentication, patient management, sessions, exercises, chat, AI reports, analytics, and admin monitoring — deployed on Azure.</p>
+<p><strong>Who will use it:</strong> Mental health therapists (primary users) and their patients (secondary users), supported by AI services and limited admin monitoring capabilities.</p>
+<p><strong>What problems it solves:</strong> Eliminates manual intake paperwork via OCR, automates referral report drafting with therapist oversight, centralizes patient progress data, enables between-session AI-supported chat with crisis detection, and provides analytics for data-informed care decisions.</p>
+<p><strong>What is intentionally excluded:</strong> Native mobile apps, payment processing, video conferencing, multi-tenant SaaS, hospital EMR integration, wearable devices, full admin user management, and AI model fine-tuning.</p>
+</div>
+</section>
+
+<!-- SECTION 20 -->
+<section id="s20">
+<h2>20. Complete Task List (Project Completion)</h2>
+<p>Consolidated task register from use case ownership matrix, 4-sprint roadmap, and daily execution plan. Total: <strong>52 use cases</strong> + <strong>infrastructure/deployment tasks</strong>.</p>
+
+<h3>20.1 Sprint 1 — Foundation &amp; Critical Infrastructure (Weeks 1–2)</h3>
+<table>
+<thead><tr><th>ID</th><th>Task</th><th>Owner</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td>T-001</td><td>Set up OpenAI GPT-4o &amp; Whisper API integration</td><td>Iman Wael</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-002</td><td>Initialize vector database for embeddings (pgvector)</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-003</td><td>Design RAG pipeline architecture</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-004</td><td>Set up crisis detection keyword model</td><td>Iman Wael</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-005</td><td>Patient progress dashboard UI mockups</td><td>Iman Wael</td><td><span class="tag tag-medium">Medium</span></td></tr>
+<tr><td>T-006</td><td>Implement JWT authentication (Therapist &amp; Patient)</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-007</td><td>Password hashing &amp; reset password flow</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-008</td><td>Database schema: Users, Patients, Sessions, Exercises</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-009</td><td>REST API framework &amp; error handling</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-010</td><td>Email service integration</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-011</td><td>Azure infrastructure setup &amp; OpenAI provisioning</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-012</td><td>AI service integration layer base</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-013</td><td>Create design system &amp; component library</td><td>Mustafa</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-014</td><td>Build login/register forms (Therapist &amp; Patient)</td><td>Mustafa</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-015</td><td>Password reset flow UI</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-016</td><td>Responsive navigation &amp; layout</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-017</td><td>Angular project setup &amp; base layouts</td><td>Mustafa</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-018</td><td>UC: Register Therapist Account</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-019</td><td>UC: Login / Logout (Therapist)</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-020</td><td>UC: Login / Logout (Patient)</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-021</td><td>UC: Reset Password</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-022</td><td>UC: Manage Profile</td><td>Yara</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-023</td><td>UC: Create Patient Profile</td><td>Yara</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-024</td><td>UC: Update Patient Profile</td><td>Yara</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-025</td><td>UC: View Patient Profile</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-026</td><td>UC: Search Patients</td><td>Yara</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-027</td><td>UC: Archive Patient</td><td>Yara</td><td><span class="tag tag-medium">Medium</span></td></tr>
+<tr><td>T-028</td><td>Patient Profile API (CRUD) &amp; UI form</td><td>Yara</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-029</td><td>Database indexing for patient search</td><td>Yara</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-030</td><td>UC: Create Session Note</td><td>Mohammed</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-031</td><td>UC: Edit Session Note</td><td>Mohammed</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-032</td><td>UC: View Session History</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-033</td><td>UC: Search Session Notes</td><td>Mohammed</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-034</td><td>UC: Record Voice Memo (basic setup)</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-035</td><td>Session Note API (CRUD) &amp; history UI</td><td>Mohammed</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-036</td><td>System architecture design &amp; tech stack finalization</td><td>Iman Wael</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-037</td><td>API gateway architecture &amp; base endpoints</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-038</td><td>Redis setup for caching</td><td>Salma</td><td><span class="tag tag-medium">Medium</span></td></tr>
+<tr><td>T-039</td><td>Front-end API integration testing</td><td>All</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-040</td><td>Security audit &amp; dependency review</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+</tbody>
+</table>
+
+<h3>20.2 Sprint 2 — Core Business Features &amp; AI Integration (Weeks 3–4)</h3>
+<table>
+<thead><tr><th>ID</th><th>Task</th><th>Owner</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td>T-041</td><td>UC: Extract Intake Form Data (OCR)</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-042</td><td>UC: Generate Referral Report Draft</td><td>Iman Wael</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-043</td><td>UC: Detect Crisis Keywords (NLP)</td><td>Iman Wael</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-044</td><td>UC: Summarize Patient History</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-045</td><td>Test RAG pipeline with sample patient data</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-046</td><td>UC: Complete Digital Intake Form</td><td>Mustafa</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-047</td><td>UC: Upload Intake Form Image</td><td>Yara</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-048</td><td>OCR integration setup (GPT-4o Vision)</td><td>Yara</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-049</td><td>Patient data extraction pipeline (LLM parsing)</td><td>Yara</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-050</td><td>Assessment form auto-fill logic</td><td>Yara</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-051</td><td>UC: Record Psychological Assessments</td><td>Yara</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-052</td><td>UC: Assign Exercise</td><td>Yara</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-053</td><td>UC: Extend Due Date / Deactivate Exercise</td><td>Yara</td><td><span class="tag tag-medium">Medium</span></td></tr>
+<tr><td>T-054</td><td>UC: Convert Voice Memo to Text (STT)</td><td>Mohammed</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-055</td><td>UC: Generate Support Responses (Chatbot)</td><td>Mohammed</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-056</td><td>Whisper STT integration &amp; voice recording</td><td>Mohammed</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-057</td><td>Voice-to-text processing &amp; storage</td><td>Mohammed</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-058</td><td>Session note enhancement (summarization)</td><td>Mohammed</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-059</td><td>Exercise recommendation assistant (LLM)</td><td>Mohammed</td><td><span class="tag tag-medium">Medium</span></td></tr>
+<tr><td>T-060</td><td>WebSocket/SignalR for real-time chat</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-061</td><td>Chat message storage &amp; retrieval API</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-062</td><td>Notification service &amp; crisis alert logic</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-063</td><td>Exercise reminder notification setup</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-064</td><td>Background job infrastructure (Hangfire)</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-065</td><td>Queue management for AI tasks (Redis)</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-066</td><td>UC: Start Support Chat</td><td>Mustafa</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-067</td><td>UC: View Assigned Exercises (Patient)</td><td>Mustafa</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-068</td><td>Exercise assignment form &amp; tracking UI</td><td>Mustafa</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-069</td><td>AI chat component &amp; streaming message UI</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-070</td><td>UC: Send Message</td><td>Mohammed</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-071</td><td>UC: Receive AI Response</td><td>Mohammed</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-072</td><td>UC: Mark Exercise Completed / Partial / Skipped</td><td>Mohammed</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-073</td><td>UC: Submit Reflection Notes</td><td>Mohammed</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-074</td><td>UC: Update Exercise</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-075</td><td>LangChain setup &amp; RAG prototype</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-076</td><td>Embedding pipeline &amp; pgvector integration</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-077</td><td>AI module integration testing</td><td>All</td><td><span class="tag tag-high">High</span></td></tr>
+</tbody>
+</table>
+
+<h3>20.3 Sprint 3 — Advanced Features &amp; Integration (Weeks 5–6)</h3>
+<table>
+<thead><tr><th>ID</th><th>Task</th><th>Owner</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td>T-078</td><td>UC: Generate Referral Report</td><td>Iman Wael</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-079</td><td>UC: Review / Edit / Approve / Reject Report</td><td>Iman Wael</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-080</td><td>UC: View Patient Progress Dashboard</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-081</td><td>UC: View Assessment Trends</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-082</td><td>UC: Generate Embeddings (RAG)</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-083</td><td>Full RAG pipeline with semantic search</td><td>Iman Wael</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-084</td><td>Referral report generator agent</td><td>Iman Wael</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-085</td><td>UC: Export Report as PDF</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-086</td><td>UC: Retrieve Relevant Session Context</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-087</td><td>UC: Maintain Conversation Memory</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-088</td><td>UC: Escalate Crisis Alert</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-089</td><td>Report generation job scheduling</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-090</td><td>Audit logging for AI-generated content</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-091</td><td>Token usage tracking &amp; cost monitoring</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-092</td><td>Prompt management system</td><td>Salma</td><td><span class="tag tag-medium">Medium</span></td></tr>
+<tr><td>T-093</td><td>UC: View Previous Reports</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-094</td><td>Report editor UI (rich text, sections, versioning)</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-095</td><td>Report review &amp; approval screen</td><td>Mustafa</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-096</td><td>Confidence score indicators for AI outputs</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-097</td><td>Exercise analytics &amp; session statistics charts</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-098</td><td>AI feedback collection UI</td><td>Mustafa</td><td><span class="tag tag-medium">Medium</span></td></tr>
+<tr><td>T-099</td><td>UC: View Exercise Analytics</td><td>Yara</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-100</td><td>UC: Monitor Exercise Completion</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-101</td><td>Assessment CRUD complete &amp; analytics API</td><td>Yara</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-102</td><td>Patient summary generation &amp; refinement</td><td>Yara</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-103</td><td>UC: View Session Statistics</td><td>Mohammed</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-104</td><td>UC: View AI Session Summary</td><td>Mohammed</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-105</td><td>UC: View Chat Engagement Summary</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-106</td><td>UC: Receive Crisis Alerts (Therapist)</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-107</td><td>UC: Crisis Alert (Patient)</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-108</td><td>UC: View Chat History</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-109</td><td>Crisis alert display in therapist chat monitor</td><td>Mohammed</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-110</td><td>Enhanced voice memo transcription UI</td><td>Mohammed</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-111</td><td>Full system integration testing</td><td>All</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-112</td><td>Load testing &amp; performance optimization</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+</tbody>
+</table>
+
+<h3>20.4 Sprint 4 — Polish, Testing, Admin &amp; Deployment (Weeks 7–8)</h3>
+<table>
+<thead><tr><th>ID</th><th>Task</th><th>Owner</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td>T-113</td><td>Optimize RAG pipeline performance</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-114</td><td>Fine-tune crisis detection accuracy</td><td>Iman Wael</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-115</td><td>Admin dashboard design &amp; system analytics</td><td>Iman Wael</td><td><span class="tag tag-medium">Medium</span></td></tr>
+<tr><td>T-116</td><td>AI usage analytics &amp; cost tracking dashboard</td><td>Iman Wael</td><td><span class="tag tag-medium">Medium</span></td></tr>
+<tr><td>T-117</td><td>Review and finalize all 52 use cases</td><td>Iman Wael</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-118</td><td>AI integration documentation</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-119</td><td>Authentication security hardening</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-120</td><td>Data encryption at rest &amp; in transit</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-121</td><td>Rate limiting &amp; DDoS protection</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-122</td><td>Database backup &amp; recovery testing</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-123</td><td>API security audit &amp; OWASP compliance</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-124</td><td>Deployment scripts &amp; CI/CD pipeline</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-125</td><td>Azure App Service deployment</td><td>Salma</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-126</td><td>Database migration to Azure SQL</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-127</td><td>Production monitoring &amp; alerting setup</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-128</td><td>Cross-browser &amp; responsive testing</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-129</td><td>WCAG accessibility compliance</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-130</td><td>Frontend performance optimization</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-131</td><td>Admin UI components &amp; tables</td><td>Mustafa</td><td><span class="tag tag-medium">Medium</span></td></tr>
+<tr><td>T-132</td><td>User guide &amp; UI documentation</td><td>Mustafa</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-133</td><td>End-to-end patient workflow testing</td><td>Yara</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-134</td><td>Data validation &amp; search optimization testing</td><td>Yara</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-135</td><td>Patient domain documentation</td><td>Yara</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-136</td><td>End-to-end chat &amp; voice workflow testing</td><td>Mohammed</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-137</td><td>Crisis detection accuracy testing</td><td>Mohammed</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-138</td><td>Clinical domain documentation</td><td>Mohammed</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-139</td><td>UAT testing plan execution</td><td>All</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-140</td><td>UAT bug fixes &amp; issue resolution</td><td>All</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-141</td><td>API documentation (Swagger)</td><td>Iman Wael</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-142</td><td>AI integration &amp; prompt documentation</td><td>Salma</td><td><span class="tag tag-high">High</span></td></tr>
+<tr><td>T-143</td><td>Smoke testing on production</td><td>All</td><td><span class="tag tag-critical">Critical</span></td></tr>
+<tr><td>T-144</td><td>Capstone defense presentation preparation</td><td>All</td><td><span class="tag tag-critical">Critical</span></td></tr>
+</tbody>
+</table>
+<p><strong>Task Summary:</strong> 144 tracked tasks covering 52 use cases + infrastructure, testing, documentation, and deployment. Daily standups (28 sessions in 4-week plan), PR submissions, and sprint reviews govern progress.</p>
+</section>
+
+<!-- GAPS -->
+<section id="gaps">
+<h2>Document Gaps, Conflicts &amp; Notes</h2>
+<div class="alert alert-warning">
+<h4>Missing Artifacts in Workspace</h4>
+<p>A standalone SRS document and standalone ERD file were referenced but not found as separate files in the project workspace. Content was synthesized from:</p>
+<ul>
+    <li><code>Jalsa_Project_Roadmap.html</code> — 52 use cases, sprint plan (8 weeks), domain ownership</li>
+    <li><code>jalsa_execution_plan.html</code> — tech stack, AI architecture, UML diagram (embedded), modules</li>
+    <li><code>jalsa_detailed_roadmap.html</code> — day-by-day tasks (4 weeks), risks, workload matrix</li>
+</ul>
+</div>
+<div class="alert alert-warning">
+<h4>Identified Conflicts Requiring Resolution</h4>
+<table>
+<thead><tr><th>Topic</th><th>Conflict</th><th>Recommendation</th></tr></thead>
+<tbody>
+<tr><td>Timeline</td><td>Roadmap defines 4 sprints × 2 weeks (8 weeks); detailed plan defines 4 weeks (20 working days)</td><td>Align team on single schedule; use 8-week plan for academic timeline if supervisor allows</td></tr>
+<tr><td>Database</td><td>pgvector/PostgreSQL referenced alongside Azure SQL migration</td><td>Confirm single DB strategy: Azure SQL with pgvector extension OR PostgreSQL on Azure</td></tr>
+<tr><td>Real-Time Chat</td><td>WebSocket (roadmap) vs SignalR (execution plan)</td><td>Use SignalR as standard (.NET stack); functionally equivalent</td></tr>
+<tr><td>Email Service</td><td>SendGrid/nodemailer (Node-style) vs .NET stack</td><td>Use SendGrid .NET SDK or ASP.NET email provider</td></tr>
+<tr><td>Administrator Actor</td><td>Admin dashboard tasks exist but no admin use cases in 52-case list</td><td>Either add admin use cases or document as technical monitoring scope only</td></tr>
+<tr><td>Therapist Management</td><td>No dedicated therapist CRUD module; only self-registration</td><td>Accept as in-scope limitation or add admin therapist management post-MVP</td></tr>
+<tr><td>ERD Entities</td><td>No standalone ERD; entities inferred: User, Patient, Session, Exercise, Assessment, ChatMessage, Report, Notification, Embedding</td><td>Produce formal ERD aligned with finalized database schema in Sprint 1</td></tr>
+</tbody>
+</table>
+</div>
+<div class="alert alert-info">
+<h4>Inferred ERD Entity Model (Pending Formal Diagram)</h4>
+<p>Based on database schema references across artifacts: <strong>User</strong> (Therapist/Patient roles) → <strong>Patient</strong> → <strong>Session</strong>, <strong>Assessment</strong>, <strong>ExerciseAssignment</strong>, <strong>IntakeForm</strong>, <strong>ChatConversation</strong>, <strong>ChatMessage</strong>, <strong>ReferralReport</strong>, <strong>Notification</strong>, <strong>DocumentEmbedding</strong> (pgvector).</p>
+</div>
+</section>
+
+<footer>
+<p><strong>Jalsa (جلسة) — Project Scope Document v1.0</strong></p>
+<p>ITI Capstone 2026 · AI-Powered Arabic Mental Health Clinic Management System</p>
+<p>Prepared for Graduation Project Documentation, Stakeholder Review, Project Planning, Team Management &amp; Development Tracking</p>
+<p style="margin-top:12px;color:#a0aec0;">Team: Iman Wael (Lead) · Salma (Backend) · Mustafa (Frontend) · Yara (Patient Domain) · Mohammed (Clinical Domain)</p>
+</footer>
+
+</div>
+</body>
+</html>
